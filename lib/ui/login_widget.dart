@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:trendradio/TrendHome.dart';
 
 class LoginWidget extends StatelessWidget {
   const LoginWidget({
@@ -10,7 +11,9 @@ class LoginWidget extends StatelessWidget {
 
   void navigate_to_home(BuildContext context)  {
  
-
+         Navigator.of(context).push( MaterialPageRoute(builder: (BuildContext context) { 
+                return TrendHome();
+               }) );
          
   }
   @override

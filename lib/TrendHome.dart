@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:trendradio/trend_icons_icons.dart';
-
+import 'package:trendradio/ui/dj_features.dart';
+import 'package:trendradio/ui/online_tv.dart';
 
 class TrendHome extends StatefulWidget {
   TrendHome({Key key}) : super(key: key);
@@ -14,13 +15,12 @@ class _TrendHomeState extends State<TrendHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            bottomNavigationBar: BottomNavigationBar(items: [
+        bottomNavigationBar: 
+                    BottomNavigationBar(items: [
                     BottomNavigationBarItem(icon: Icon(TrendIcons.trend_user), title:   Text("") ),
                     BottomNavigationBarItem( icon: Icon(TrendIcons.trend_home ), title: Text("") ),
-        BottomNavigationBarItem(icon: Icon(TrendIcons.trend_settings),title: Text("") )
+                    BottomNavigationBarItem(icon: Icon(TrendIcons.trend_settings), title: Text("") )
                   ],
-              
-              
                   ),
           body: Container(
 
@@ -29,14 +29,11 @@ class _TrendHomeState extends State<TrendHome> {
              
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8, top: 10),
-                      child: Text("Good Afternoon, Caroline", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),),
-                    ),
+                    
                   Expanded(
                     flex: 3,
                       child: Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.only(top: 10.0, left: 5, right: 5, bottom: 5),
                         child: Container(
                           decoration: BoxDecoration(
                            boxShadow:  [
@@ -48,9 +45,9 @@ class _TrendHomeState extends State<TrendHome> {
                                 offset: Offset(0, 3), 
                            )],
                             gradient: LinearGradient(
-                                  begin: Alignment.bottomRight,
+                                  begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
-                                  colors: [Colors.lightBlueAccent[100], Colors.purple]),
+                                  colors: [Color(0xFFe54f4f), Color(0XFF661980)]),
                            color: Colors.white,
                            borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
@@ -62,20 +59,38 @@ class _TrendHomeState extends State<TrendHome> {
                           child: Center(
                             
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              
                               children: <Widget>[
-                                Image.asset(""),
+
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Icon(TrendIcons.listen, 
+                                  color: Colors.white,
+                                  size: 100,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("LISTEN", style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 50,
+                                    color: Colors.white
+                                    ),),
+                                )
                               ],
                             )
                             ),
                         ),
                       ),
                     ),
-                  Expanded(
-                    flex: 1,
+                  
+                   Expanded(
+                    flex:1,
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
-                        decoration: BoxDecoration(
+                         decoration: BoxDecoration(
                            boxShadow:  [
                              
                              BoxShadow(
@@ -87,37 +102,18 @@ class _TrendHomeState extends State<TrendHome> {
 
                            color: Colors.white,
                            borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15),
-                                      bottomRight: Radius.circular(15)
-                                        ),
+                            topLeft: Radius.circular(15),
+                              topRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15),
+                              bottomRight: Radius.circular(15)
+    ),
                           ),
-                        child: Container(
-                          
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(""),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(""),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )),
-                    )
-                      
-                ),
-
+                        child: DjFeatures() 
+                        
+                        ),
+                    ),
+                    
+                    ),
                   Expanded(
                     flex:1,
                     child: Padding(
@@ -141,8 +137,12 @@ class _TrendHomeState extends State<TrendHome> {
                               bottomRight: Radius.circular(15)
     ),
                           ),
-                        child: Center(child: Text(""))),
-                    ),)
+                        child: OnlineTv() 
+                        
+                        ),
+                    ),
+                    
+                    )
                 ],)
       ),
     );

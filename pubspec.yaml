@@ -50,9 +50,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/videos/login_video_animation.mp4
-    - assets/images/cover.png
-    - assets/images/chef.jpg
-    - assets/images/
+
+    - assets/images/dj_features.jpg
     - assets/logo/trend_logo.png
     - assets/logo/logo_white.png
 
@@ -71,6 +70,8 @@ flutter:
       - family: Sofia
         fonts:
           - asset: assets/fonts/sofia_bold.ttf
+      - family: Sofia_regular
+        fonts:
           - asset: assets/fonts/sofia_regular.ttf
   #         style: italic
   #   - family: Trajan Pro

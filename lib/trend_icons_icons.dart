@@ -39,4 +39,5 @@ class TrendIcons {
   static const IconData online_tv = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData listen = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook_2 = IconData(0xf300, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrow_down = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

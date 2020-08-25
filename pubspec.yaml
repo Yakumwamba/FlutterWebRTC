@@ -25,6 +25,9 @@ dependencies:
     sdk: flutter
   video_player: 0.10.9
   flutter_auth_buttons: ^0.8.0
+  flutter_facebook_login: ^3.0.0
+  http: ^0.12.2
+  provider: ^4.3.2+1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,12 +70,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-      - family: Sofia
-        fonts:
-          - asset: assets/fonts/sofia_bold.ttf
       - family: Sofia_regular
         fonts:
           - asset: assets/fonts/sofia_regular.ttf
+      - family: Sofia_bold
+        fonts:
+          - asset: assets/fonts/sofia_bold.ttf
   #         style: italic
   #   - family: Trajan Pro
 

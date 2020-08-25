@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trendradio/login.dart';
 
+import 'AuthState.dart';
+
 void main() {
-  runApp(MyApp());
+  
+  runApp( MyApp());
+
+    
 }
 
 class MyApp extends StatelessWidget {
@@ -11,15 +17,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Trend Radio',
+      
       theme: ThemeData(
-       
+           
           primaryColor: Color(0xffF79F00),
           accentColor: Color(0xffffd544),
-          fontFamily: 'Sofia',
+          fontFamily: 'Sofia_regular',
           visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:LoginScreen(),
+      
+      home: LoginScreen()
+      
+      ,
     );
   }
 }

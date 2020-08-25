@@ -2,15 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:trendradio/trend_icons_icons.dart';
-import 'package:trendradio/ui/login_widget.dart';
+import 'package:trendradio/login_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class LoginScreen extends StatefulWidget {
+    LoginScreen({Key key}) : super(key: key);
   @override
   _LoginScreen createState() => _LoginScreen();
 }
 
 class _LoginScreen extends State<LoginScreen> {
+
+
   // TODO 4: Create a VideoPlayerController object.
   VideoPlayerController _controller;
 

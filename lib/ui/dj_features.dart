@@ -42,15 +42,15 @@ class DjFeatures extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 22),
+                padding: const EdgeInsets.only(left: 20),
                 child: Icon(
                   TrendIcons.dj_feature,
-                  size: 35,
+                  size: 30,
                   color: Colors.white,
                 ),
               ),
               SizedBox(
-                width: 22,
+                width: 45,
               ),
               Container(
                 child: Column(
@@ -59,7 +59,7 @@ class DjFeatures extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       "Dj Features",
-                      style: TextStyle(fontSize: 30,
+                      style: TextStyle(fontSize: 25,
                       color: Colors.white
                       ),
                     ),

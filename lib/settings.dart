@@ -1,139 +1,154 @@
+import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:trendradio/trend_icons_icons.dart';
 
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: 
-                    BottomNavigationBar(items: [
-                    BottomNavigationBarItem(icon: Icon(TrendIcons.trend_user), title:   Text("") ),
-                    BottomNavigationBarItem( icon: Icon(TrendIcons.trend_home ), title: Text("") ),
-                    BottomNavigationBarItem(icon: Icon(TrendIcons.trend_settings), title: Text("") )
-                  ],
-                  ),
-          body: Container(
-
-            padding: EdgeInsets.all(20),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 61, bottom: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Settings",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Padding(
+                padding: EdgeInsets.only(left: 15.0, right: 15.0),
                 child: Column(
-             
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    
-                  Expanded(
-                    flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10.0, left: 5, right: 5, bottom: 5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                           boxShadow:  [
-                             
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.20),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: Offset(0, 3), 
-                           )],
-                            gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [Color(0xFFe54f4f), Color(0XFF661980)]),
-                           color: Colors.white,
-                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15)
-    ),
-                          ),
-                          child: Center(
-                            
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              
-                              children: <Widget>[
-
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(TrendIcons.listen, 
-                                  color: Colors.white,
-                                  size: 100,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text("LISTEN", style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 50,
-                                    color: Colors.white
-                                    ),),
-                                )
-                              ],
-                            )
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("High Quality on mobile data"),
+                            CustomSwitch(
+                                activeColor: Color(0xfff79f00),
+                                onChanged: (changed) {
+                                  return true;
+                                },
+                                value: true),
+                          ],
+                        ),
+                        Padding(
+                          padding:EdgeInsets.only(top :22.0),
+                          child: Divider(color: Color(0xff33393939)),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Push Notifications"),
+                            CustomSwitch(
+                                activeColor: Color(0xfff79f00),
+                                onChanged: (changed) {
+                                  return true;
+                                },
+                                value: false),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 22.0),
+                          child: Divider(color: Color(0xff33393939)),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Dark Mode"),
+                            CustomSwitch(
+                                activeColor: Color(0xfff79f00),
+                                onChanged: (changed) {
+                                  return true;
+                                },
+                                value: false),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 22.0),
+                          child: Divider(color: Color(0xff33393939)),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Email Newsletter",
+                              style: TextStyle(fontSize: 14),
                             ),
+                            CustomSwitch(
+                                activeColor: Color(0xfff79f00),
+                                onChanged: (changed) {
+                                  return true;
+                                },
+                                value: true)
+                          ],
                         ),
-                      ),
+                        Padding(
+                          padding:  EdgeInsets.only(top :22.0),
+                          child: Divider(color: Color(0xff33393939)),
+                        )
+                      ],
                     ),
-                  
-                   Expanded(
-                    flex:1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                         decoration: BoxDecoration(
-                           boxShadow:  [
-                             
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.20),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: Offset(0, 3), 
-                           )],
-
-                           color: Colors.white,
-                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15)
-    ),
-                          ),
-                        child: Text("") 
-                        
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Feedback"),
+                           Icon(TrendIcons.forwad_button, size: 15, color: Color(0xfff79f00),)
+                          ],
                         ),
+                     
+                      ],
                     ),
-                    
-                    ),
-                  Expanded(
-                    flex:1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                         decoration: BoxDecoration(
-                           boxShadow:  [
-                             
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.20),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: Offset(0, 3), 
-                           )],
-
-                           color: Colors.white,
-                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                              topRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15)
-    ),
-                          ),
-                        child:Text("sad")
-                        
-                        ),
-                    ),
-                    
-                    )
-                ],)
+                     Container(
+                       width: MediaQuery.of(context).size.width,
+                       color: Colors.white,
+                       child: Padding(
+                         padding: EdgeInsets.only(bottom: 11.0),
+                         child: Column(
+                           mainAxisAlignment: MainAxisAlignment.end,
+                           children: [
+                             Center(
+                                 child: Text(
+                               "App Version 1.1",
+                               style: TextStyle(fontSize: 10,color: Color(0xff707070)),
+                             )),
+                           ],
+                         ),
+                       ),
+                     )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

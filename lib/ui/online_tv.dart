@@ -16,18 +16,18 @@ class OnlineTv extends StatelessWidget {
                              
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 25),
-                                  child: Icon(TrendIcons.online_tv, size: 30,),
+                                  padding: const EdgeInsets.only(left: 26),
+                                  child: Icon(TrendIcons.online_tv, size: 25,),
                                 ),
-                                SizedBox(width: 40,),
+                                SizedBox(width: 60,),
                                 Container(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       
-                                      Text("Online TV", style: TextStyle(fontSize: 30),),
-                                      Text("Coming soon", style: TextStyle(fontSize: 15),),
+                                      Text("Online TV", style: TextStyle(fontSize: 25),),
+                                      Text("Coming soon", style: TextStyle(fontSize: 10),),
                                     ],
                                   ),
                                 ),

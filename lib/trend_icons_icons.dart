@@ -38,6 +38,10 @@ class TrendIcons {
   static const IconData dj_feature = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData online_tv = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData listen = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData facebook_2 = IconData(0xf300, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData arrow_down = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData rewind = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData forward = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cancel_button = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData forwad_button = IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData facebook_2 = IconData(0xf300, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

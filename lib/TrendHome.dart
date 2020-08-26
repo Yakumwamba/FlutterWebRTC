@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendradio/play_screen.dart';
+import 'package:trendradio/settings.dart';
 import 'package:trendradio/trend_icons_icons.dart';
 import 'package:trendradio/ui/accounts_view.dart';
 import 'package:trendradio/ui/dj_features.dart';
@@ -24,7 +25,7 @@ class _TrendHomeState extends State<TrendHome> {
   List<Widget> _children = [
     AccountView(),
     HomeView(),
-    HomeView(),
+    Settings(),
   ];
 
   @override
@@ -32,20 +33,30 @@ class _TrendHomeState extends State<TrendHome> {
     
 
 
-    
+   
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar:  BottomNavigationBar(
           currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(TrendIcons.trend_user), title: Text("")),
             BottomNavigationBarItem(
                 icon: Container(
+                  height: 50,
+                  width: 50,
                   decoration: BoxDecoration(
                       color: Colors.orange[500],
-                      borderRadius: BorderRadius.circular(1)),
+                      
+                      borderRadius: BorderRadius.circular(50)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(TrendIcons.play_button,  size: 50,  color: Color(0xff37003c),),
+                        ],
+                      ),
                 ),
-                title: Text('play')),
+                title: Text("")),
             BottomNavigationBarItem(
                 icon: Icon(TrendIcons.trend_settings), title: Text(""))
           ],
@@ -67,6 +78,15 @@ class _TrendHomeState extends State<TrendHome> {
               }));
               return;
             }
+            // if(index == 2 ){
+            //   Navigator.of(context)
+            //       .push(MaterialPageRoute(
+            //         builder: (BuildContext context) {
+            //     return Settings();
+              
+            //   }));
+            //   return;
+            // }
 
             setState(() {
               _currentIndex = index;

@@ -31,9 +31,6 @@ class _TrendHomeState extends State<TrendHome> {
   @override
   Widget build(BuildContext context) {
     
-
-
-   
     return Scaffold(
         bottomNavigationBar:  BottomNavigationBar(
           currentIndex: _currentIndex,

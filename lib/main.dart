@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendradio/login.dart';
 
-import 'AuthState.dart';
 
 void main() {
   
   runApp( MyApp());
-
-    
 }
 
 class MyApp extends StatelessWidget {
@@ -29,7 +26,7 @@ class MyApp extends StatelessWidget {
       
       home: LoginScreen()
       
-      ,
+      
     );
   }
 }

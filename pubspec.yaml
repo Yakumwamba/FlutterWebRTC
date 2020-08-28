@@ -29,6 +29,7 @@ dependencies:
   http: ^0.12.2
   provider: ^4.3.2+1
   custom_switch: ^0.0.1
+  animations: ^1.1.2
 
 
   # The following adds the Cupertino Icons font to your application.

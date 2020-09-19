@@ -1,8 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:trendradio/TrendHome.dart';
 import 'package:trendradio/trend_icons_icons.dart';
+
+import 'data/streaminfo.dart';
 
 class TermsAndConditions extends StatefulWidget {
   TermsAndConditions({Key key}) : super(key: key);
@@ -13,7 +16,7 @@ class TermsAndConditions extends StatefulWidget {
 
 class _TermsAndConditions extends State<TermsAndConditions> {
   int _currentIndex = 0;
-
+StreamInfo info = Get.find();
 @override
   void initState() {
     super.initState();
@@ -46,7 +49,10 @@ Widget _bottom_buttons(BuildContext context) {
             height: 60,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: OutlineButton(onPressed: () {  }, textColor: Theme.of(context).primaryColor, 
+              child: OutlineButton(onPressed: () { 
+
+                Get.back();
+               }, textColor: Theme.of(context).primaryColor, 
                   highlightedBorderColor: Colors.orange,
                   
                   borderSide: BorderSide( color: Theme.of(context).primaryColor)  ,
@@ -71,10 +77,8 @@ Widget _bottom_buttons(BuildContext context) {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                     splashColor: Colors.blueAccent,
                     onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-
-                            return TrendHome();
-                        }));
+                       Get.to(TrendHome());
+                        info.setTermsAndConditionsTrue(true);
                     },
                     child: Text(
                       "Yes"

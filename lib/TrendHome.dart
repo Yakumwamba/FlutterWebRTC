@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:trendradio/data/streaminfo.dart';
 import 'package:trendradio/play_screen.dart';
 import 'package:trendradio/settings.dart';
 import 'package:trendradio/trend_icons_icons.dart';
@@ -9,17 +12,22 @@ import 'package:trendradio/ui/home_view.dart';
 import 'package:trendradio/ui/online_tv.dart';
 
 import 'AuthState.dart';
+import 'data/controller.dart';
 
 class TrendHome extends StatefulWidget {
-  final Map userprofile;
 
-  TrendHome({Key key, @required this.userprofile}) : super(key: key);
+
+  TrendHome({Key key}) : super(key: key);
 
   @override
   _TrendHomeState createState() => _TrendHomeState();
 }
 
 class _TrendHomeState extends State<TrendHome> {
+  
+  //Controller controller = Controller();s
+  StreamInfo controller = Get.put(StreamInfo(), permanent: true); 
+   
   int _currentIndex = 1;
 
   List<Widget> _children = [
@@ -58,22 +66,19 @@ class _TrendHomeState extends State<TrendHome> {
                 icon: Icon(TrendIcons.trend_settings), title: Text(""))
           ],
           onTap: (int index) {
-            final appState = Provider.of<AuthState>(context, listen: false);
-                appState.setDisplayName(widget.userprofile['name']);
-                appState.setEmailAddress(widget.userprofile['email']);
-                appState.setImageUrl(widget.userprofile['picture']['data']['url']);
-                print(widget.userprofile['picture']['data']['url']);
+            // final appState = Provider.of<AuthState>(context, listen: false);
+            //     appState.setDisplayName(widget.userprofile['name']);
+            //     appState.setEmailAddress(widget.userprofile['email']);
+            //     appState.setImageUrl(widget.userprofile['picture']['data']['url']);
+            //     print(widget.userprofile['picture']['data']['url']);
                 
             if (index == 0) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(
-                    builder: (BuildContext context) {
-                return ChangeNotifierProvider<AuthState>.value(
-                  value: appState,
-                  child: AccountView(),);
-              
-              }));
+              Get.to( AccountView());
               return;
+            }
+            if ( index == 2) {
+                 Get.to( AccountView());
+                 return;
             }
             // if(index == 2 ){
             //   Navigator.of(context)

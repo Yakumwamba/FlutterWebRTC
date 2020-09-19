@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:trendradio/trend_icons_icons.dart';
 
-import '../AuthState.dart';
+import 'package:provider/provider.dart';
+import 'package:trendradio/data/streaminfo.dart';
+import 'package:trendradio/trend_icons_icons.dart';
+import 'package:get/get.dart';
+
 
 class AccountView extends StatefulWidget {
   @override
@@ -10,9 +12,12 @@ class AccountView extends StatefulWidget {
 }
 
 class _AccountViewState extends State<AccountView> {
+
+  StreamInfo info = Get.find();
+  
   @override
   Widget build(BuildContext context) {
-    final authState = Provider.of<AuthState>(context);
+ 
 
     // String _text = authState.getDisplayName;
     // String _email = authState.getEmailAddress;
@@ -20,8 +25,8 @@ class _AccountViewState extends State<AccountView> {
 
     return Scaffold(
       body: Stack(children: <Widget>[
-        Consumer<AuthState>(builder: (context, authState, child) {
-          return Container(
+  
+           Container(
             padding: EdgeInsets.only(top: 45),
             child: Column(
               children: <Widget>[
@@ -68,7 +73,7 @@ class _AccountViewState extends State<AccountView> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                                authState.getImageUrl,
+                                info.profilePicUrl,
                                 fit: BoxFit.cover,
                                 height: 72,
                                 width: 72,
@@ -95,9 +100,7 @@ class _AccountViewState extends State<AccountView> {
                             height: 9,
                           ),
                           Text(
-                            authState.getDisplayName != null
-                                ? authState.getDisplayName
-                                : "not set",
+                           info.name,
                             style: TextStyle(
                                 fontSize: 15, color: Color(0xff707070)),
                           ),
@@ -105,9 +108,7 @@ class _AccountViewState extends State<AccountView> {
                             height: 3,
                           ),
                           Text(
-                            authState.getEmailAddress != null
-                                ? authState.getEmailAddress
-                                : "not set",
+                            info.email,
                             style: TextStyle(
                                 fontSize: 12, color: Color(0xff707070)),
                           )
@@ -239,8 +240,8 @@ class _AccountViewState extends State<AccountView> {
                 )
               ],
             ),
-          );
-        }),
+          )
+     
       ]),
     );
   }

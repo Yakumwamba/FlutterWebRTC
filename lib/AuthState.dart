@@ -1,8 +1,9 @@
 
 
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
-class AuthState extends ChangeNotifier {
+class AuthState extends GetxController {
 
 AuthState();
 
@@ -14,16 +15,16 @@ AuthState();
 
   void setDisplayName(String text) {
     _displayName = text;
-    notifyListeners();
+    //notifyListeners();
   }
 
    void setEmailAddress(String email) {
     _setEmailAdress = email;
-    notifyListeners();
+    //notifyListeners();
   }
    void setImageUrl(String url) {
     _image_url = url;
-    notifyListeners();
+    //notifyListeners();
   }
     String get getDisplayName => _displayName;
     String get getEmailAddress => _setEmailAdress;

@@ -5,16 +5,6 @@ description: A new Flutter project.
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
 environment:
@@ -30,8 +20,10 @@ dependencies:
   provider: ^4.3.2+1
   custom_switch: ^0.0.1
   animations: ^1.1.2
-
-
+  flutter_radio: ^0.1.8
+  get: ^3.10.1
+  timer_builder: ^1.3.0
+  splashscreen: ^1.2.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -39,6 +31,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.8.0"
   
 
 # For information on the generic Dart part of this file, see the
@@ -51,14 +44,29 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/videos/login_video_animation.mp4
-
+    - assets/images/dj_features.jpg
+    - assets/images/splash.png
     - assets/images/dj_features.jpg
     - assets/logo/trend_logo.png
     - assets/logo/logo_white.png
+  fonts:
+      - family: Sofia_regular
+        fonts:
+          - asset: assets/fonts/sofia_regular.ttf
+      - family: Sofia_bold
+        fonts:
+        - asset: assets/fonts/sofia_bold.ttf
+      - family:  TrendIcons   
+        fonts:
+          - asset: assets/fonts/TrendIcons.ttf
+
+  # adaptive_icon_background: “lib/assets/launcher/background.png”
+  # adaptive_icon_foreground: “lib/assets/launcher/foreground.png”
+  # To add assets to your application, add an assets section, like this:
+  # To add assets to your application, add an assets section, like this:
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -71,18 +79,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-      - family: Sofia_regular
-        fonts:
-          - asset: assets/fonts/sofia_regular.ttf
-      - family: Sofia_bold
-        fonts:
-          - asset: assets/fonts/sofia_bold.ttf
-  #         style: italic
-  #   - family: Trajan Pro
 
-      - family:  TrendIcons
-        fonts:
-          - asset: assets/fonts/TrendIcons.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

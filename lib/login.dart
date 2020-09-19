@@ -18,6 +18,7 @@ class _LoginScreen extends State<LoginScreen> {
   void initState() {
     super.initState();
     // Pointing the video controller to our local asset.
+    
     _controller =
         VideoPlayerController.asset("assets/videos/login_video_animation.mp4")
           ..initialize().then((_) {

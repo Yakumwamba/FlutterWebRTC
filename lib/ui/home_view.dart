@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_radio/flutter_radio.dart';
+import 'package:get/get.dart';
+import 'package:trendradio/data/controller.dart';
 
 import '../play_screen.dart';
 import '../trend_icons_icons.dart';
 import 'dj_features.dart';
 import 'online_tv.dart';
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
 
-class HomeView extends StatelessWidget {
+class _HomeViewState extends State<HomeView> {
+
+  Controller controller = Get.put(Controller()); 
+
+ 
+
+  @override
+  void initState() {
+    super.initState();
+  
+    //playingStatus();
+  }
+
+ 
+
   @override
   Widget build(BuildContext context) {
     return Container(

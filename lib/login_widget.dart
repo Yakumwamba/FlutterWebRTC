@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
@@ -5,6 +8,8 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 
 import 'package:get/state_manager.dart';
+import 'package:get_storage/get_storage.dart';
+//import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:trendradio/TermsAndConditions.dart';
 import 'package:trendradio/TrendHome.dart';
@@ -13,11 +18,9 @@ import 'package:http/http.dart' as http;
 import 'package:trendradio/data/streaminfo.dart';
 
 import 'AuthState.dart';
-
-
+import 'custom_web_view.dart';
 
 class LoginWidget extends StatefulWidget {
-   
   const LoginWidget({
     Key key,
   }) : super(key: key);
@@ -27,17 +30,87 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  //GetStorage box = GetStorage();
 
-StreamInfo info = Get.find();
+  String your_client_id = "381667702819164";
+  String redirect_url = "https://www.facebook.com/connect/login_success.html";
+
+  StreamInfo info = Get.find();
+  final auth = FirebaseAuth.instance;
+
+  GetStorage box = GetStorage();
   Future<void> navigate_to_home() async {
-     
-    if(info.termsAndConditions == false) {
-        Get.to( TermsAndConditions());
-        return;
+    // if (box.read("ts_agreed")) {
+    //   // Get.to(transition: PageTransition(
+    //   // type: PageTransitionType.fade,
+    //   // child:));c
+    //   // return;
+    //   Get.to(  TrendHome());
+    //   //Navigator.push(context, PageTransition(type: PageTransitionType.downToUp, child:TermsAndConditions()));
+    //   return;
+    // }
+    if (box.read("ts_agreed") == "true") {
+      print(box.read("ts_agreed"));
+      Get.to(TrendHome());
+      return;
     }
+    print(box.read("ts_agreed"));
+    Get.to(TermsAndConditions());
+  }
 
+
+@override
+void initState() { 
+  super.initState();
+  if(  box.read("logged_in") == "true") {
+    info.getTrackInfo();
     Get.to(TrendHome());
+  }
+}
 
+  loginWithFacebook() async {
+    String result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => CustomWebView(
+                selectedUrl:
+                    'https://www.facebook.com/dialog/oauth?client_id=$your_client_id&redirect_uri=$redirect_url&response_type=token&scope=email,public_profile',
+              ),
+          maintainState: true),
+    );
+
+    if (result != null) {
+      try {
+        final facebookAuthCred =
+            FacebookAuthProvider.getCredential(accessToken: result);
+        final user = await auth.signInWithCredential(facebookAuthCred);
+        print("Hooray gone in");
+        box.write("username", user.user.displayName);
+        box.write("email", user.user.email);
+        box.write("photoUrl", user.user.photoUrl);
+        box.write("logged_in", "true");
+        var graphResponse = await http.get(
+            'https://graph.facebook.com/v2.12/me?fields=name,first_name,picture,last_name,email&access_token=$result');
+        var profile = json.decode(graphResponse.body);
+        box.write("photoUrl", profile['picture']['data']['url']);
+
+        print(profile['picture']['data']['url']);
+        user.user.printInfo();
+        // print(user.user.providerData);
+
+        navigate_to_home();
+      } catch (e) {
+        print("bad happend");
+        print(e);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // box.dispose();
   }
 
   @override
@@ -53,42 +126,13 @@ StreamInfo info = Get.find();
               Container(
                 height: 50,
                 child: FacebookSignInButton(
-                    onPressed: () async{
-                        
-                         // navigate_to_home();
-
-                        final facebookLogin = FacebookLogin();
-                  final result = await facebookLogin.logIn(['email']);
-
-                  switch (result.status) {
-                    case FacebookLoginStatus.loggedIn:
-                      final token = result.accessToken.token;
-                      final graphResponse = await http.get(
-                          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture.width(800).height(800),email&access_token=${token}');
-                      final p = convert.json.decode(graphResponse.body);
-                      Map profile = Map<String, dynamic>.from(p);
-
-                      print(profile);
-                      //final appState = Provider.of<AuthState>(context, listen: false);
-                      // appState.setDisplayName(profile['name']);
-                      // appState.setEmailAddress(profile['email']);
-                      // appState.setImageUrl(profile['picture']['data']['url']);
-
-                      info.setName(profile['name']);
-                      info.setProfilePicUrl(profile['picture']['data']['url']);
-                      info.setEmail(profile['email']);
-
-                      
-                      navigate_to_home();
-                      break;
-                    case FacebookLoginStatus.cancelledByUser:
-                      print("Canceld");
-                      break;
-                    case FacebookLoginStatus.error:
-                      print(result.errorMessage);
-                      break;
-                  }
-                      
+                    onPressed: () async {
+                      //navigate_to_home();
+                      if(box.read("logged_in") == "true"){
+                        navigate_to_home();
+                        return;
+                      }
+                      loginWithFacebook();
                       //debugPrint("Clicked on it just now");
                     },
                     borderRadius: 8.0,

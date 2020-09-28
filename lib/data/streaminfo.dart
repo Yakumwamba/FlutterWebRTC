@@ -14,47 +14,51 @@ class StreamInfo extends GetxController {
   bool loaded = false;
   DateTime startTime;
   DateTime endTime;
-
-
+  bool termsAndConditions = false;
 
 //USER FACEBOOK INFO
 
-String name;
-String profilePicUrl;
-String email;
+  String name;
+  String profilePicUrl;
+  String email;
 
-void setName(String name) {
-  this.name = name;
+  void setName(String name) {
+    this.name = name;
+  }
 
-}
+  void setProfilePicUrl(String profilePicUrl) {
+    this.profilePicUrl = profilePicUrl;
+  }
 
-void setProfilePicUrl(String profilePicUrl) {
-  this.profilePicUrl = profilePicUrl;
-
-}
-void setEmail(String email) {
-  this.email = email;
-
-}
-  bool termsAndConditions = false;
+  void setEmail(String email) {
+    this.email = email;
+  }
 
   void setTermsAndConditionsTrue(bool accepted) {
     this.termsAndConditions = accepted;
   }
 
+  void setEndTime(String endTime) {
+    this.endTime = DateTime.parse(endTime).toUtc();
+  }
+
+  DateTime getEndTime() {
+    return this.endTime;
+  }
   //{name: Brian Lemba,
-  //  first_name: Brian, last_name: Lemba, 
-  //  picture: {data: {height: 960, is_silhouette: false, 
-  //  url: https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3668301613179983&height=800&width=800&ext=1603066254&hash=AeRKgrX48dEiNBps, width: 960}}, 
+  //  first_name: Brian, last_name: Lemba,
+  //  picture: {data: {height: 960, is_silhouette: false,
+  //  url: https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=3668301613179983&height=800&width=800&ext=1603066254&hash=AeRKgrX48dEiNBps, width: 960}},
   //email: brian.lemba@yahoo.com, id: 3668301613179983}
 
   StreamInfo(
-      {this.artist, this.title, this.duration, this.album, this.startTime});
+      {this.artist, this.title, this.duration, this.album, this.endTime});
   factory StreamInfo.fromJson(Map<String, dynamic> parsedJson) {
     return StreamInfo(
       artist: parsedJson['artist'],
       title: parsedJson['title'],
       album: parsedJson['album'],
+
       //startTime: DateTime(parsedJson['startTime'])
     );
   }
@@ -71,6 +75,10 @@ void setEmail(String email) {
     this.album = album;
   }
 
+  void setAlbumUrl(url) {
+    this.albumCover = url;
+  }
+
   getTrackArtist() {
     return this.artist;
   }
@@ -81,6 +89,10 @@ void setEmail(String email) {
 
   getTrackTitle() {
     return this.title;
+  }
+
+  getAlbumCover() {
+    return this.albumCover;
   }
 
   Future<dynamic> getTrackInfo() async {
@@ -95,6 +107,9 @@ void setEmail(String email) {
       setArtist(parsed['artist']);
       setTitle(parsed['title']);
       setAlbum(parsed['album']);
+      setEndTime(parsed['end_at']);
+      setAlbumUrl(parsed['cover']);
+      setLoadedTrue();
     }
 
     //print(getTrackArtist());
@@ -107,4 +122,9 @@ void setEmail(String email) {
     //splice the start and end time into format h:m
     //
   }
+
+  void setLoadedTrue() {
+    this.loaded = true;
+  }
+
 }

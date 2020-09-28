@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:provider/provider.dart';
 import 'package:trendradio/data/streaminfo.dart';
 import 'package:trendradio/trend_icons_icons.dart';
 import 'package:get/get.dart';
+
+import 'manage_account.dart';
 
 
 class AccountView extends StatefulWidget {
@@ -14,7 +17,7 @@ class AccountView extends StatefulWidget {
 class _AccountViewState extends State<AccountView> {
 
   StreamInfo info = Get.find();
-  
+  GetStorage box = GetStorage();
   @override
   Widget build(BuildContext context) {
  
@@ -73,7 +76,7 @@ class _AccountViewState extends State<AccountView> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                                info.profilePicUrl,
+                               box.read("photoUrl"),
                                 fit: BoxFit.cover,
                                 height: 72,
                                 width: 72,
@@ -100,7 +103,7 @@ class _AccountViewState extends State<AccountView> {
                             height: 9,
                           ),
                           Text(
-                           info.name,
+                            box.read("username"),
                             style: TextStyle(
                                 fontSize: 15, color: Color(0xff707070)),
                           ),
@@ -108,7 +111,7 @@ class _AccountViewState extends State<AccountView> {
                             height: 3,
                           ),
                           Text(
-                            info.email,
+                            box.read("email"),
                             style: TextStyle(
                                 fontSize: 12, color: Color(0xff707070)),
                           )
@@ -134,26 +137,31 @@ class _AccountViewState extends State<AccountView> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 43, right: 47),
-                    color: Color(0xFFfafafa),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          TrendIcons.group_42,
-                          size: 32,
-                          color: Color(0xfff79f00),
-                        ),
-                        Text(
-                          "Manage Account",
-                          style: TextStyle(fontSize: 14),
-                          textAlign: TextAlign.left,
-                        ),
-                        Icon(TrendIcons.forwad_button,
-                            size: 15, color: Color(0xfff79f00))
-                      ],
+                  child: InkWell(
+                    onTap: () {
+                    Get.to(ManageAccount());
+                    },
+                                      child: Container(
+                      padding: EdgeInsets.only(left: 43, right: 47),
+                      color: Color(0xFFfafafa),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            TrendIcons.group_42,
+                            size: 32,
+                            color: Color(0xfff79f00),
+                          ),
+                          Text(
+                            "Manage Account",
+                            style: TextStyle(fontSize: 14),
+                            textAlign: TextAlign.left,
+                          ),
+                          Icon(TrendIcons.forwad_button,
+                              size: 15, color: Color(0xfff79f00))
+                        ],
+                      ),
                     ),
                   ),
                 ),

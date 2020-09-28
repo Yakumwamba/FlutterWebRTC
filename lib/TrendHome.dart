@@ -77,7 +77,7 @@ class _TrendHomeState extends State<TrendHome> {
               return;
             }
             if ( index == 2) {
-                 Get.to( AccountView());
+                 Get.to( Settings());
                  return;
             }
             // if(index == 2 ){

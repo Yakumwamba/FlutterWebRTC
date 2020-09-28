@@ -5,7 +5,7 @@ import '../trend_icons_icons.dart';
 class OnlineTv extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-     return Stack(children: <Widget>[
+    return Stack(children: <Widget>[
       Container(
         decoration: BoxDecoration(
           color: Colors.grey,
@@ -18,33 +18,31 @@ class OnlineTv extends StatelessWidget {
             )
           ],
           borderRadius: BorderRadius.only(
-            
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15)
-          ),
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20)),
           image: DecorationImage(
               image: AssetImage(
-                'assets/images/dj_features.jpg',
+                'assets/images/online_tv.jpg',
               ),
               fit: BoxFit.fitWidth,
               alignment:
-                  Alignment.lerp(Alignment.center, Alignment.topRight, 0.68),
+                  Alignment.lerp(Alignment.center, Alignment.topLeft, 0.60),
               colorFilter: ColorFilter.mode(Colors.grey, BlendMode.darken)),
         ),
       ),
       Container(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 20),
+                padding:  EdgeInsets.only(left: 20),
                 child: Icon(
-                  TrendIcons.dj_feature,
+                  TrendIcons.online_tv,
                   size: 30,
                   color: Colors.white,
                 ),
@@ -58,12 +56,13 @@ class OnlineTv extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Dj Features",
-                      style: TextStyle(fontSize: 25,
-                      color: Colors.white
-                      ),
+                      "Online TV",
+                      style: TextStyle(fontSize: 25, color: Colors.white),
                     ),
-                   
+                    Text(
+                      "Coming soon",
+                      style: TextStyle(fontSize: 10, color: Colors.white),
+                    )
                   ],
                 ),
               ),
@@ -74,9 +73,6 @@ class OnlineTv extends StatelessWidget {
     ]);
   }
 }
-
-
-
 
 // return Container(
 //       child: Padding(
@@ -104,10 +100,10 @@ class OnlineTv extends StatelessWidget {
 //                     "Online TV",
 //                     style: TextStyle(fontSize: 25),
 //                   ),
-//                   Text(
-//                     "Coming soon",
-//                     style: TextStyle(fontSize: 10),
-//                   ),
+// Text(
+//   "Coming soon",
+//   style: TextStyle(fontSize: 10),
+// ),
 //                 ],
 //               ),
 //             ),

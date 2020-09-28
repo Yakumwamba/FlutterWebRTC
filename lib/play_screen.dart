@@ -26,8 +26,8 @@ class _PlayScreenState extends State<PlayScreen> {
   static const streamUrl = "https://www.radioking.com/play/trendradio";
   String urlTrackInfo =
       "https://api.radioking.io/widget/radio/trendradio/track/current";
-
   StreamInfo trackInfo = Get.find();
+
   bool isPlaying;
   @override
   void initState() {
@@ -41,10 +41,11 @@ class _PlayScreenState extends State<PlayScreen> {
     //splice the start and end time into format h:m
     print("init state");
 
-    trackInfo.getTrackInfo();
+    //trackInfo.getTrackInfo();
     print(trackInfo.artist);
     print(trackInfo.title);
     print(trackInfo.album);
+    print(trackInfo.albumCover);
     // print(trackInfo.getTrackInfo());
     // print(trackInfo.getTrackArtist());
 
@@ -79,78 +80,96 @@ class _PlayScreenState extends State<PlayScreen> {
     super.dispose();
   }
 
-  void initTrackInfo() {
-    info = StreamInfo();
-  }
-
-  void timer() {
-    _everySecond = Timer.periodic(Duration(seconds: 20), (Timer t) {
-      info.getTrackInfo();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
       child: Container(
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.red,
-            gradient: LinearGradient(
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                colors: [Color(0xFFe54f4f), Color(0XFF661980)]),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 40, bottom: 5, right: 15),
-                child: Icon(
+        decoration: BoxDecoration(
+          color: Colors.red,
+          gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Color(0xFFe54f4f), Color(0XFF661980)]),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 10, bottom: 5),
+              child: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: Icon(
                   TrendIcons.arrow_down,
-                  color: Colors.white,
-                  size: 16,
+                  size: 10,
+                  color: Colors.grey[100],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(13.0),
-                child: Container(
-                  padding: EdgeInsets.only(left: 10, right: 10),
-                  height: MediaQuery.of(context).size.width * 0.9,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.010),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3),
-                        )
-                      ],
-                      color: Color(0xfff79f00),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                          bottomLeft: Radius.circular(15),
-                          bottomRight: Radius.circular(15)),
-                      image: DecorationImage(
-                          image: NetworkImage(info.albumCover))),
-                  child: Flexible(
-                    child: Center(
-                        child: Image.asset(
-                      'assets/logo/logo_white.png',
-                      fit: BoxFit.contain,
-                      width: 200,
-                      height: 200,
-                    )),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.0, right: 20, bottom: 5),
+              child: Container(
+                height: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.010),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3),
+                      )
+                    ],
+                    color: Color(0xfff79f00),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
+                        
+                    image: DecorationImage(image:  NetworkImage(
+                    ""
+                    ),
+                    fit: BoxFit.fill,
+                    )
+                    
+                    ),
+              ),
+            ),
+            CurrentTrack(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 30),
+                                  child: IconButton(
+                    color: Colors.white,
+                    icon: Icon(TrendIcons.rewind, size: 20,  ),
+                  
+                    onPressed: () {},
                   ),
                 ),
-              ),
-              CurrentTrack()
-            ],
-          ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: Image.asset('assets/images/live.png', 
+                  scale: 0.8 ,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 40),
+                                  child: IconButton(
+                    color: Colors.white,
+                    icon: Icon(TrendIcons.forward , size: 20),
+                    onPressed: () {},
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

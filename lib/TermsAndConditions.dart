@@ -2,6 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+//import 'package:get_storage/get_storage.dart';
 import 'package:trendradio/TrendHome.dart';
 import 'package:trendradio/trend_icons_icons.dart';
 
@@ -17,6 +19,7 @@ class TermsAndConditions extends StatefulWidget {
 class _TermsAndConditions extends State<TermsAndConditions> {
   int _currentIndex = 0;
 StreamInfo info = Get.find();
+GetStorage box = GetStorage();
 @override
   void initState() {
     super.initState();
@@ -79,6 +82,7 @@ Widget _bottom_buttons(BuildContext context) {
                     onPressed: () {
                        Get.to(TrendHome());
                         info.setTermsAndConditionsTrue(true);
+                       box.write("ts_agreed", "true");
                     },
                     child: Text(
                       "Yes"

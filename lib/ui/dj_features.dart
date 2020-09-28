@@ -19,10 +19,10 @@ class DjFeatures extends StatelessWidget {
           ],
           borderRadius: BorderRadius.only(
             
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15)
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20)
           ),
           image: DecorationImage(
               image: AssetImage(
@@ -63,6 +63,10 @@ class DjFeatures extends StatelessWidget {
                       color: Colors.white
                       ),
                     ),
+                    Text(
+                      "Coming soon",
+                      style: TextStyle(fontSize: 10, color: Colors.white),
+                    )
                    
                   ],
                 ),

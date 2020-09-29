@@ -28,7 +28,11 @@ class _PlayScreenState extends State<PlayScreen> {
       "https://api.radioking.io/widget/radio/trendradio/track/current";
   StreamInfo trackInfo = Get.find();
 
+  
+
   bool isPlaying;
+
+  bool _is_playing = false;
   @override
   void initState() {
     //TODO: implement initState
@@ -50,7 +54,9 @@ class _PlayScreenState extends State<PlayScreen> {
     // print(trackInfo.getTrackArtist());
 
     //
-    // audioStart();
+    if (trackInfo.getPlayStatus() == false) {
+      audioStart();
+    }
 
     //FlutterRadio.playOrPause(url: streamUrl);
 
@@ -64,8 +70,15 @@ class _PlayScreenState extends State<PlayScreen> {
   }
 
   Future<void> audioStart() async {
+    
     await FlutterRadio.audioStart();
+    await FlutterRadio.playOrPause(url: streamUrl);
     print('Audio Start OK');
+
+    if(!trackInfo.getPlayStatus()){
+        trackInfo.setPlayStatusTrue();
+    }
+    
   }
 
   Future<dynamic> getTrackInfo() async {
@@ -79,7 +92,6 @@ class _PlayScreenState extends State<PlayScreen> {
     // TODO: implement dispose
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -130,14 +142,10 @@ class _PlayScreenState extends State<PlayScreen> {
                         topRight: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
-                        
-                    image: DecorationImage(image:  NetworkImage(
-                    ""
-                    ),
-                    fit: BoxFit.fill,
-                    )
-                    
-                    ),
+                    image: DecorationImage(
+                      image: NetworkImage(trackInfo.getAlbumCover()),
+                      fit: BoxFit.fill,
+                    )),
               ),
             ),
             CurrentTrack(),
@@ -146,24 +154,27 @@ class _PlayScreenState extends State<PlayScreen> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(left: 30),
-                                  child: IconButton(
+                  child: IconButton(
                     color: Colors.white,
-                    icon: Icon(TrendIcons.rewind, size: 20,  ),
-                  
+                    icon: Icon(
+                      TrendIcons.rewind,
+                      size: 20,
+                    ),
                     onPressed: () {},
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
-                  child: Image.asset('assets/images/live.png', 
-                  scale: 0.8 ,
+                  child: Image.asset(
+                    'assets/images/live.png',
+                    scale: 0.8,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 40),
-                                  child: IconButton(
+                  child: IconButton(
                     color: Colors.white,
-                    icon: Icon(TrendIcons.forward , size: 20),
+                    icon: Icon(TrendIcons.forward, size: 20),
                     onPressed: () {},
                   ),
                 )

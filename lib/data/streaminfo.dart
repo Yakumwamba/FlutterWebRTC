@@ -15,6 +15,7 @@ class StreamInfo extends GetxController {
   DateTime startTime;
   DateTime endTime;
   bool termsAndConditions = false;
+  bool _is_playing = false;
 
 //USER FACEBOOK INFO
 
@@ -125,6 +126,14 @@ class StreamInfo extends GetxController {
 
   void setLoadedTrue() {
     this.loaded = true;
+  }
+  
+  void setPlayStatusTrue() {
+    this._is_playing = true;
+  }
+
+  bool getPlayStatus(){
+    return this._is_playing;
   }
 
 }

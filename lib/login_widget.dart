@@ -63,9 +63,10 @@ class _LoginWidgetState extends State<LoginWidget> {
 void initState() { 
   super.initState();
   if(  box.read("logged_in") == "true") {
-    info.getTrackInfo();
+   // info.getTrackInfo();
     Get.to(TrendHome());
   }
+     info.getTrackInfo();
 }
 
   loginWithFacebook() async {
@@ -132,7 +133,8 @@ void initState() {
                         navigate_to_home();
                         return;
                       }
-                      loginWithFacebook();
+                      navigate_to_home();
+                      //loginWithFacebook();
                       //debugPrint("Clicked on it just now");
                     },
                     borderRadius: 8.0,

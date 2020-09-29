@@ -76,7 +76,7 @@ class _AccountViewState extends State<AccountView> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                               box.read("photoUrl"),
+                               box.read("photoUrl") == null ? "" : box.read("photoUrl"),
                                 fit: BoxFit.cover,
                                 height: 72,
                                 width: 72,
@@ -103,7 +103,7 @@ class _AccountViewState extends State<AccountView> {
                             height: 9,
                           ),
                           Text(
-                            box.read("username"),
+                            box.read("username") == null ? "Username" : box.read("username"),
                             style: TextStyle(
                                 fontSize: 15, color: Color(0xff707070)),
                           ),
@@ -111,7 +111,7 @@ class _AccountViewState extends State<AccountView> {
                             height: 3,
                           ),
                           Text(
-                            box.read("email"),
+                           box.read("email") == null ? "Email" : box.read("email"),
                             style: TextStyle(
                                 fontSize: 12, color: Color(0xff707070)),
                           )

@@ -59,15 +59,15 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
 
-@override
-void initState() { 
-  super.initState();
-  if(  box.read("logged_in") == "true") {
-   // info.getTrackInfo();
-    Get.to(TrendHome());
-  }
-     info.getTrackInfo();
-}
+// @override
+// void initState() { 
+//   super.initState();
+//   if(  box.read("logged_in") == "true") {
+//    // info.getTrackInfo();
+//     Get.to(TermsAndConditions());
+//   }
+//      info.getTrackInfo();
+// }
 
   loginWithFacebook() async {
     String result = await Navigator.push(
@@ -133,8 +133,8 @@ void initState() {
                         navigate_to_home();
                         return;
                       }
-                      navigate_to_home();
-                      //loginWithFacebook();
+                      //navigate_to_home();
+                      loginWithFacebook();
                       //debugPrint("Clicked on it just now");
                     },
                     borderRadius: 8.0,

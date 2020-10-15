@@ -23,7 +23,7 @@ class _PlayScreenState extends State<PlayScreen> {
   String artist;
   Timer _everySecond;
 
-  static const streamUrl = "https://www.radioking.com/play/trendradio";
+  static const streamUrl = "https://swww.radioking.com/play/trendradio";
   String urlTrackInfo =
       "https://api.radioking.io/widget/radio/trendradio/track/current";
   StreamInfo trackInfo = Get.find();

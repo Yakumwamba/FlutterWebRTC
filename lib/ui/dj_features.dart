@@ -7,6 +7,8 @@ class DjFeatures extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       Container(
+        height: 50,
+        width: 50,
         decoration: BoxDecoration(
           color: Colors.grey,
           boxShadow: [

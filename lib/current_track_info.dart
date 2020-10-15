@@ -27,7 +27,7 @@ class _CurrentTrackState extends State<CurrentTrack> {
     return Text(
         trackInfo.getTrackAlbum() != null
             ? "${trackInfo.getTrackAlbum()}"
-            : "---",
+            : "Loading...",
         style: TextStyle(
             color: Colors.white, fontSize: 12, fontFamily: 'Sofia_regular'));
   }

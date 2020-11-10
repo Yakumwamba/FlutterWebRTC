@@ -1,14 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 //import 'package:get_storage/get_storage.dart';
-import 'package:trendradio/TrendHome.dart';
-import 'package:trendradio/trend_icons_icons.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_plus/webview_flutter_plus.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'data/streaminfo.dart';
 
 class TermsAndConditions extends StatefulWidget {
@@ -22,16 +22,26 @@ class _TermsAndConditions extends State<TermsAndConditions> {
   int _currentIndex = 0;
   StreamInfo info = Get.find();
   GetStorage box = GetStorage();
+  String termsOfUse;
+  WebViewPlusController _controller;
+  double _height = 1;
   final _key = UniqueKey();
+
   @override
   void initState() {
+    //termsOfUse = await rootBundle.loadString('assets/terms/termsofuse.txt');
     super.initState();
+    // loadAsset();
+    termsOfUse = "Loading";
+    loadAsset().then((value) {
+      setState(() {
+        termsOfUse = value.toString();
+      });
+    });
   }
 
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+  Future<String> loadAsset() async {
+    return await rootBundle.loadString('assets/terms/termsofuse.txt');
   }
 
   Widget _bottom_buttons(BuildContext context) {
@@ -76,7 +86,7 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                     borderRadius: BorderRadius.circular(10)),
                 splashColor: Colors.blueAccent,
                 onPressed: () {
-                  Get.to(TrendHome());
+                  // Get.to(TrendHome());
                   info.setTermsAndConditionsTrue(true);
                   box.write("ts_agreed", "true");
                 },
@@ -92,15 +102,11 @@ class _TermsAndConditions extends State<TermsAndConditions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(child: Text("sad"),),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(left: 10, right: 10),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 30, bottom: 10),
-          child: Container(
-              decoration: BoxDecoration(
+      body: Stack(children: <Widget>[
+        Container(
+            height: Get.width * 0.80,
+            decoration: BoxDecoration(
+                color: Colors.white,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.20),
@@ -109,101 +115,203 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                     offset: Offset(0, 3),
                   )
                 ],
-                color: Colors.white,
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.pink[50],
+                      Colors.pink[50],
+                    ]),
+                borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(1000, 70)))),
+        Padding(
+          padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 35),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15),
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15)),
-              ),
-              height: MediaQuery.of(context).size.height * 0.7,
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.010),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+                color: Colors.white),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.010),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                  color: Colors.white),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                verticalDirection: VerticalDirection.down,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 1,
                     child: Container(
-                      decoration: BoxDecoration(),
                       child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                    child: Column(
-                                  children: [
-                                    Text(
-                                      "Terms & Conditions",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                )),
-                              ],
-                            ),
-                          ],
+                        child: Text(
+                          "Terms of Use",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Color(0xff262626),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
                   Expanded(
-                    child: SingleChildScrollView(
-                        dragStartBehavior: DragStartBehavior.start,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 20, right: 20),
-                          child: SizedBox(
-                            height: 100,
-                            child: Text("as")
-                            //WebView(initialUrl: "https//www.Google.com"),
-                          ),
-                        )),
-                  ),
-                  SizedBox(
-                    height: 50,
-                    child: Container(
-                      child: Center(
-                        child: Container(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Checkbox(
-                                    value: false,
-                                    onChanged: null,
-                                    checkColor: Theme.of(context).primaryColor,
-                                    visualDensity: VisualDensity.compact,
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap),
-                                Text("Tap to confirm",
-                                    style: TextStyle(fontSize: 9))
-                              ],
-                            ),
-                            Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0, right: 20),
+                      child: termsOfUse == "Loading"
+                          ? Center(
+                              child: SpinKitFadingCircle(itemBuilder:
+                                  (BuildContext context, int index) {
+                                return DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: index.isEven
+                                        ? Colors.orange
+                                        : Colors.yellow,
+                                  ),
+                                );
+                              }),
+                            )
+                          : SingleChildScrollView(
+                              child: SizedBox(
+                                height: Get.height * 8,
                                 child: Text(
-                              "I have read and understood the terms and conditions",
-                              style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.bold),
-                            ))
-                          ],
-                        )),
-                      ),
+                                  termsOfUse,
+                                  textAlign: TextAlign.justify,
+                                ),
+
+                                // child: WebViewPlus(
+                                //   onWebViewCreated: (controller) {
+                                //     this._controller = controller;
+
+                                //     controller.loadUrl(
+                                //         'https://www.trendonlineradio.com/privacy-policy');
+                                //   },
+                                //   onPageFinished: (url) {
+                                //     this
+                                //         ._controller
+                                //         .getHeight()
+                                //         .then((double height) {
+                                //       print("Height:  " + height.toString());
+                                //       setState(() {
+                                //         _height = height;
+                                //       });
+                                //     });
+                                //     this._controller.scrollTo(0, 400);
+                                //   },
+                                //   javascriptMode: JavascriptMode.unrestricted,
+                                // ),
+                              ),
+                            ),
                     ),
                   ),
-                  _bottom_buttons(context),
+
+                  // singleton implementation
+                  // for the custom cache manager
+                  // factory MyCacheManager() {
+                  //   if (_instance == null) {
+                  //     _instance = new MyCacheManager._();
+                  //   }
+                  //   return _instance;
+                  // }
+
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 25.0, right: 25, bottom: 25),
+                      child: box.read("agreed") != null &&
+                              box.read("agreed") == true
+                          ? InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Center(
+                                child: Container(
+                                  height: 46,
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.010),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                      color: Color(0xfff79f00)),
+                                  child: Center(
+                                      child: Text(
+                                    "Close",
+                                    style: TextStyle(
+                                        color: Color(0xff262626),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                ),
+                              ),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Center(
+                                child: Container(
+                                  height: 46,
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.010),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3),
+                                        ),
+                                      ],
+                                      color: Color(0xfff79f00)),
+                                  child: Center(
+                                      child: Text(
+                                    "Close",
+                                    style: TextStyle(
+                                        color: Color(0xff262626),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                ),
+                              ),
+                            ),
+                    ),
+                  )
                 ],
-              )),
-        ),
-      ),
+              ),
+            ),
+          ),
+        )
+      ]),
     );
   }
 }

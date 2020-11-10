@@ -43,5 +43,9 @@ class TrendIcons {
   static const IconData forward = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData cancel_button = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData forwad_button = IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData email_icon = IconData(0xe817, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData back_arrow = IconData(0xe818, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData lock = IconData(0xe819, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData pause = IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData facebook_2 = IconData(0xf300, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

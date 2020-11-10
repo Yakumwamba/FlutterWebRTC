@@ -8,12 +8,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:826430003124:android:c01ba0cd92ce79ce9744e1",
+        "mobilesdk_app_id": "1:826430003124:android:794a3c512e917d7c9744e1",
         "android_client_info": {
           "package_name": "com.trendonline.trendradio"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "826430003124-mg6jjd3jmsocjn0jtd2pq6pj5gkgloof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trendonline.trendradio",
+            "certificate_hash": "1de75b4bf3f03852f7204566ac85948744a306aa"
+          }
+        },
+        {
+          "client_id": "826430003124-190ii270mj523qar86vprjl3633u0kum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trendonline.trendradio",
+            "certificate_hash": "6ce3ee3dcfa63dca20355658c38dbcfa5db1d85d"
+          }
+        },
         {
           "client_id": "826430003124-gjhk1eal98e4l67atjon0542vnj99tp2.apps.googleusercontent.com",
           "client_type": 3

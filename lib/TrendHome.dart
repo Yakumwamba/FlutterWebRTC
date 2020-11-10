@@ -1,49 +1,72 @@
+import 'package:Trend/settings.dart';
+
+import 'package:Trend/ui/accounts_view.dart'  hide TrendIcons;
+import 'package:Trend/ui/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-import 'package:provider/provider.dart';
-import 'package:trendradio/data/streaminfo.dart';
-import 'package:trendradio/play_screen.dart';
-import 'package:trendradio/settings.dart';
-import 'package:trendradio/trend_icons_icons.dart';
-import 'package:trendradio/ui/accounts_view.dart';
-import 'package:trendradio/ui/dj_features.dart';
-import 'package:trendradio/ui/home_view.dart';
-import 'package:trendradio/ui/online_tv.dart';
 
-import 'AuthState.dart';
-import 'data/controller.dart';
+import 'package:Trend/trend_icons_icons.dart';
+
 
 class TrendHome extends StatefulWidget {
-  TrendHome({Key key}) : super(key: key);
+
 
   @override
   _TrendHomeState createState() => _TrendHomeState();
 }
 
 class _TrendHomeState extends State<TrendHome> {
-  //Controller controller = Controller();s
-  StreamInfo controller = Get.put(StreamInfo(), permanent: true);
+  
 
-  int _currentIndex = 1;
 
-  List<Widget> _children = [
-    AccountView(),
-    HomeView(),
-    Settings(),
-  ];
+Route _createRoute(Widget route) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => route,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1);
+      var end = Offset.zero;
+      var curve = Curves.easeInExpo;
+      var curve2 = Curves.linearToEaseOut;
+      var curve3 = Curves.fastLinearToSlowEaseIn;
 
-  @override
+      var tween = Tween(begin: begin, end: end)
+          .chain(CurveTween(curve: curve))
+          
+          // .chain(CurveTween(curve: curve2))
+          .chain(CurveTween(curve: curve2));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
+@override
   Widget build(BuildContext context) {
+
     return Scaffold(
         bottomNavigationBar: Stack(
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(top: 10),
               child: Container(
                   height: 72,
                   width: Get.width,
-                  color: Colors.white,
+                  
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                   boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.30),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  )
+                ],
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -51,7 +74,8 @@ class _TrendHomeState extends State<TrendHome> {
                         children: [
                           IconButton(
                               onPressed: () {
-                                 Get.to(AccountView());
+                                
+                                 Navigator.of(context).push(_createRoute(AccountView()));
                               },
                               icon: Icon(
                                 TrendIcons.trend_user,
@@ -68,7 +92,8 @@ class _TrendHomeState extends State<TrendHome> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Get.to( Settings());
+                               Navigator.of(context).push(_createRoute(Settings()));
+                              //Get.to( Settings());
                             },
                             icon: Icon(
                               TrendIcons.trend_settings,

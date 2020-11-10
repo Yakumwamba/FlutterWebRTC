@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "826430003124",
+    "firebase_url": "https://trendonlinradio.firebaseio.com",
+    "project_id": "trendonlinradio",
+    "storage_bucket": "trendonlinradio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826430003124:android:c01ba0cd92ce79ce9744e1",
+        "android_client_info": {
+          "package_name": "com.trendonline.trendradio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826430003124-gjhk1eal98e4l67atjon0542vnj99tp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9Stx0u9NMzmk4YU_kcs5NJPiV11T50jk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826430003124-gjhk1eal98e4l67atjon0542vnj99tp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

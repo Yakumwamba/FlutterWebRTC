@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.trendradio">
+    package="com.trendonline.trendradio">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="trendradio"
+        android:label="Trend Radio"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -24,6 +24,7 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
+             
             <!-- Displays an Android View that continues showing the launch screen
                  Drawable until Flutter paints its first frame, then this splash
                  screen fades out. A splash screen is useful to avoid any visual
@@ -43,7 +44,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-            
+             <meta-data
+                android:name="assets.audio.player.notification.icon"
+                android:resource="@drawable/trend"
+               />
             <meta-data android:name="com.facebook.sdk.ApplicationId"
     android:value="@string/facebook_app_id"/>
 

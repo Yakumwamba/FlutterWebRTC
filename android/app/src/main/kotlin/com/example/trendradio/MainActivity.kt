@@ -1,4 +1,4 @@
-package com.example.trendradio
+package com.trendonline.trendradio
 
 import io.flutter.embedding.android.FlutterActivity
 

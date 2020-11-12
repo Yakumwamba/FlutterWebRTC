@@ -1,4 +1,4 @@
-import 'package:Trend/data/controller.dart';
+
 import 'package:Trend/ui/dj_screen.dart';
 import 'package:Trend/ui/tv_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +24,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final Controller controller = Get.put(Controller());
+ // final Controller controller = Get.put(Controller());
 
   final GetStorage box = GetStorage();
 

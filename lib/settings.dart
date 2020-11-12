@@ -1,8 +1,9 @@
 import 'package:Trend/trend_icons_icons.dart';
-import 'package:custom_switch/custom_switch.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:Trend/feedback.dart' as Feed;
+import 'package:Trend/ui/switch.dart';
 
+import 'package:flutter/material.dart' hide Switch;
+import 'package:get/get.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -31,7 +32,7 @@ class Settings extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.elliptical(1000, 70)))),
         Container(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 30),
+          padding: EdgeInsets.only(left: 16, right: 16, top: 40),
           child: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -78,11 +79,7 @@ class Settings extends StatelessWidget {
                                   style: TextStyle(
                                       color: Color(0xff707070),
                                       fontSize: 22,
-                                      fontWeight: FontWeight.bold
-                                      
-                                      )
-                                      
-                                      ),
+                                      fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ),
@@ -104,7 +101,7 @@ class Settings extends StatelessWidget {
                                       "Push Notifications",
                                       style: TextStyle(fontSize: 14),
                                     ),
-                                    CustomSwitch(
+                                    Switch(
                                         activeColor: Color(0xfff79f00),
                                         onChanged: (changed) {
                                           return true;
@@ -126,7 +123,7 @@ class Settings extends StatelessWidget {
                                       "Dark Mode",
                                       style: TextStyle(fontSize: 14),
                                     ),
-                                    CustomSwitch(
+                                    Switch(
                                         activeColor: Color(0xfff79f00),
                                         onChanged: (changed) {
                                           return true;
@@ -149,7 +146,7 @@ class Settings extends StatelessWidget {
                                       "Email Newsletter",
                                       style: TextStyle(fontSize: 14),
                                     ),
-                                    CustomSwitch(
+                                    Switch(
                                         activeColor: Color(0xfff79f00),
                                         onChanged: (changed) {
                                           return true;
@@ -161,22 +158,27 @@ class Settings extends StatelessWidget {
                             ),
                             Container(
                               height: 70,
-                              child: Padding(
-                                padding: EdgeInsets.all(18.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Let us know how we're doing",
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                    Icon(
-                                      TrendIcons.forwad_button,
-                                      size: 15,
-                                      color: Color(0xfff79f00),
-                                    )
-                                  ],
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(Feed.Feedback());
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.all(18.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Let us know how we're doing",
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                      Icon(
+                                        TrendIcons.forwad_button,
+                                        size: 15,
+                                        color: Color(0xfff79f00),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -279,7 +281,7 @@ class Settings extends StatelessWidget {
 //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                             children: [
 //                               Text("High Quality on mobile data"),
-//                               CustomSwitch(
+//                               Switch(
 //                                   activeColor: Color(0xfff79f00),
 //                                   onChanged: (changed) {
 //                                     return true;
@@ -299,7 +301,7 @@ class Settings extends StatelessWidget {
 //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                             children: [
 //                               Text("Push Notifications"),
-//                               CustomSwitch(
+//                               Switch(
 //                                   activeColor: Color(0xfff79f00),
 //                                   onChanged: (changed) {
 //                                     return true;
@@ -319,7 +321,7 @@ class Settings extends StatelessWidget {
 //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //                             children: [
 //                               Text("Dark Mode"),
-//                               CustomSwitch(
+//                               Switch(
 //                                   activeColor: Color(0xfff79f00),
 //                                   onChanged: (changed) {
 //                                     return true;
@@ -342,7 +344,7 @@ class Settings extends StatelessWidget {
 //                                 "Email Newsletter",
 //                                 style: TextStyle(fontSize: 14),
 //                               ),
-//                               CustomSwitch(
+//                               Switch(
 //                                   activeColor: Color(0xfff79f00),
 //                                   onChanged: (changed) {
 //                                     return true;

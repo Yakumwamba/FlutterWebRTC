@@ -140,7 +140,7 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                             },
                             decoration: InputDecoration(
                                 icon: Padding(
-                                  padding: const EdgeInsets.only(left : 10.0),
+                                  padding: const EdgeInsets.only(left : 10.0, right: 8),
                                   child: Icon(
                                     
                                     TrendIcons.trend_user,
@@ -174,9 +174,10 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                                 return "Email required";
                               }
                             },
+                            
                             decoration: InputDecoration(
                                 icon: Padding(
-                                   padding: const EdgeInsets.only(left : 10.0),
+                                   padding: const EdgeInsets.only(left : 10.0, right: 7),
                                   child: Icon(
                                     TrendIcons.email_icon,
                                     size: 19,
@@ -210,7 +211,7 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                             },
                             decoration: InputDecoration(
                                 icon: Padding(
-                                   padding: const EdgeInsets.only(left : 10.0),
+                                   padding: const EdgeInsets.only(left : 10.0, right: 9),
                                   child: Icon(
                                     TrendIcons.lock,
                                     size: 25,
@@ -244,7 +245,7 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                             },
                             decoration: InputDecoration(
                                 icon: Padding(
-                                    padding: const EdgeInsets.only(left : 10.0),
+                                    padding: const EdgeInsets.only(left : 10.0, right: 9),
                                   child: Icon(
                                     TrendIcons.lock,
                                     size: 25,
@@ -278,14 +279,17 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(6))),
                           child: Center(
-                              child: Text(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left : 10.0),
+                                child: Text(
                             "Create Account",
                             style: TextStyle(
-                              color: Color(0xff262626),
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                                color: Color(0xff262626),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
                             ),
-                          )),
+                          ),
+                              )),
                         ),
                       ),
                       SizedBox(height: 10),

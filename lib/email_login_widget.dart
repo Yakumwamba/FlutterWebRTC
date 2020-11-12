@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:Trend/TermsAndConditions.dart';
 import 'package:Trend/TrendHome.dart';
 import 'package:Trend/data/streaminfo.dart';
 import 'package:Trend/trend_icons_icons.dart';
@@ -83,7 +84,13 @@ class _EmailLoginWidgetState extends State<EmailLoginWidget> {
       box.write('logged_in', 'true');
       box.write('email', user.email);
       box.write("loggin_type", "EMAIL");
-      Get.to(TrendHome());
+      box.write("userId", user.uid);
+
+      if (box.read("ts_agreed") != null && box.read("ts_agreed") == true) {
+        Get.to(TrendHome());
+      } else {
+        Get.to(TermsAndConditions());
+      }
     } else {}
   }
 
@@ -206,7 +213,7 @@ class _EmailLoginWidgetState extends State<EmailLoginWidget> {
                           "Submit",
                           style: TextStyle(
                               color: Color(0xff262626),
-                              fontSize: 14,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold),
                         )),
                       ),

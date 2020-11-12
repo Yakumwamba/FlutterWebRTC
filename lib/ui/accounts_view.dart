@@ -3,6 +3,7 @@ import 'package:Trend/login.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,6 +12,7 @@ import '../TermsAndConditions.dart';
 import 'package:Trend/ui/manage_account.dart';
 
 import 'package:Trend/trend_icons_icons.dart' as Trend;
+
 class AccountView extends StatefulWidget {
   @override
   _AccountViewState createState() => _AccountViewState();
@@ -20,7 +22,7 @@ class _AccountViewState extends State<AccountView> {
   StreamInfo info = Get.find();
   GetStorage box = GetStorage();
   final GoogleSignIn googleSignIn = GoogleSignIn();
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Route _createRoute(Widget route) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => route,
@@ -45,6 +47,35 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 
+  Future<void> send() async {
+    final Email email = Email(
+      body: " ",
+      subject: "Content Submition from ${box.read('firstname')}",
+      recipients: ["trend@trendonlineradio.com"],
+    );
+
+    String platformResponse;
+
+    try {
+      await FlutterEmailSender.send(email).then((value) {});
+      platformResponse = 'Thanks will get back to you!';
+    } catch (error) {
+      platformResponse = error.toString();
+    }
+
+    if (!mounted) return;
+
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(
+        platformResponse,
+        style: TextStyle(color: Colors.orange[400], fontSize: 14),
+      ),
+      backgroundColor: Colors.grey[100],
+    ));
+
+    print(platformResponse);
+  }
+
   @override
   Widget build(BuildContext context) {
     // String _text = authState.getDisplayName;
@@ -52,6 +83,7 @@ class _AccountViewState extends State<AccountView> {
     // String _url = authState.getImageUrl;
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Stack(children: <Widget>[
         Container(
             height: Get.width * 0.80,
@@ -75,9 +107,8 @@ class _AccountViewState extends State<AccountView> {
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.elliptical(1000, 70)))),
         Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 16, top: 20),
+          padding: const EdgeInsets.only(left: 16.0, right: 16, top: 40),
           child: Container(
-            padding: EdgeInsets.only(top: 15),
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -205,22 +236,27 @@ class _AccountViewState extends State<AccountView> {
                 ),
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(18),
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Get in touch",
-                          style: TextStyle(
-                            fontSize: 14,
+                  child: InkWell(
+                    onTap: () {
+                      send();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(18),
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Get in touch",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                        Icon(Trend.TrendIcons.forwad_button,
-                            color: Color(0xfff79f00), size: 15)
-                      ],
+                          Icon(Trend.TrendIcons.forwad_button,
+                              color: Color(0xfff79f00), size: 15)
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -250,14 +286,40 @@ class _AccountViewState extends State<AccountView> {
                   child: InkWell(
                     onTap: () async {
                       if (box.read("loggin_type") == "GOOGLE") {
-                        googleSignIn
-                            .signOut()
-                            .then((value) => {Get.to(LoginScreen())});
-                        box.write("logged_in", false);
+                        googleSignIn.signOut().then((value) {
+                          box.write("logged_in", false).then((value) {
+                            Get.to(LoginScreen()).then((value) {
+                              box.remove("logged_in");
+                              box.remove("username");
+                              box.remove("firstname");
+                              box.remove("lastname");
+                              box.remove("logged_in");
+                              box.remove("email");
+                              box.remove("photoUrl");
+                              box.remove("loggin_type");
+                              box.write("logged_in", false);
+                              box.write("ts_agreed", false);
+                            });
+                          });
+                        });
                       } else {
-                        await FirebaseAuth.instance
-                            .signOut()
-                            .then((value) => {Get.to(LoginScreen())});
+                        await FirebaseAuth.instance.signOut().then((value) => {
+                              box.write("ts_agreed", false),
+                              box.write("logged_in", false).then((value) {
+                                Get.to(LoginScreen()).then((value) {
+                                  box.remove("logged_in");
+                                  box.remove("username");
+                                  box.remove("firstname");
+                                  box.remove("lastname");
+                                  box.remove("logged_in");
+                                  box.remove("email");
+                                  box.remove("photoUrl");
+                                  box.remove("loggin_type");
+                                  box.write("logged_in", false);
+                                  box.write("ts_agreed", false);
+                                });
+                              })
+                            });
                       }
                     },
                     child: Container(
@@ -304,5 +366,4 @@ class _AccountViewState extends State<AccountView> {
   }
 }
 
-class TrendIcons {
-}
+class TrendIcons {}

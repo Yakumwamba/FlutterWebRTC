@@ -23,8 +23,8 @@ class PlayScreen extends StatefulWidget {
 }
 
 class _PlayScreenState extends State<PlayScreen> {
-  StreamInfo info;
-  static const String routeName = 'PlayScreen';
+ 
+ 
   String _now;
   String artist;
   Timer _everySecond;
@@ -406,6 +406,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                                   child: Icon(
                                                     TrendIcons.pause,
                                                     color: Colors.orange,
+                                                    size: 35,
                                                   ),
                                                 )
                                               : Center(

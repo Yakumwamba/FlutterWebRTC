@@ -15,8 +15,10 @@ dependencies:
     sdk: flutter
   video_player: 0.10.9
   assets_audio_player: 2.0.8+3 
+  rate_my_app: ^0.7.2
   flutter_auth_buttons: ^0.8.0
   google_sign_in:
+  flutter_email_sender: ^3.0.1
   keyboard_avoider: ^0.1.2
   http: ^0.12.2
   provider: ^4.3.2+1
@@ -62,8 +64,6 @@ flutter:
     - assets/images/dj_features.jpg
     - assets/images/online_tv.jpg
     - assets/images/tv.png
-    - assets/images/live.png
-    - assets/images/splash.png
     - assets/logo/trend_logo.png
     - assets/logo/logo_white.png
     - assets/images/facebook.png

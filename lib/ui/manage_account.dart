@@ -16,19 +16,44 @@ class ManageAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 45),
-        child: Column(children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
+      body: Stack(
+        
+              children: [
+                
+                
+                
+                Container(
+            height: Get.width * 0.80,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.20),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  )
+                ],
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Color(0xFFf79f00),
+                      Color(0XFFe54f4f),
+                    ]),
+                borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(1000, 70)))),
+                Container(
+          padding: EdgeInsets.only(left: 16.0, right: 16, top: 40),
+          child: Column(children: <Widget>[
+            Expanded(
+              flex: 1,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20)),
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.010),
@@ -57,7 +82,7 @@ class ManageAccount extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            width: 60,
+                            width: 45,
                           ),
                           Text(
                             "Manage Account",
@@ -240,8 +265,8 @@ class ManageAccount extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        )],
       ),
     );
   }

@@ -1,12 +1,11 @@
 import 'package:Trend/settings.dart';
-
 import 'package:Trend/ui/accounts_view.dart'  hide TrendIcons;
 import 'package:Trend/ui/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-
 import 'package:Trend/trend_icons_icons.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 
 
 class TrendHome extends StatefulWidget {
@@ -19,6 +18,22 @@ class TrendHome extends StatefulWidget {
 class _TrendHomeState extends State<TrendHome> {
   
 
+RateMyApp rateMyApp = RateMyApp(
+  preferencesPrefix: 'rateMyApp_',
+  minDays: 0, // Show rate popup on first day of install.
+  minLaunches: 2, // Show rate popup after 5 launches of app after minDays is passed.
+);
+@override
+void initState() {
+  super.initState();
+
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    await rateMyApp.init();
+    if (mounted && rateMyApp.shouldOpenDialog) {  
+      rateMyApp.showRateDialog  (context, title: "Rate and Review us" , message: "We would love to read what you think of our app. Please take some time to rate and review it. It really helps us and shouldn’t take more than a minute." );
+    }
+  });
+}
 
 Route _createRoute(Widget route) {
   return PageRouteBuilder(
@@ -55,6 +70,7 @@ Route _createRoute(Widget route) {
               child: Container(
                   height: 72,
                   width: Get.width,
+                 
                   
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -67,44 +83,52 @@ Route _createRoute(Widget route) {
                   )
                 ],
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                
-                                 Navigator.of(context).push(_createRoute(AccountView()));
-                              },
-                              icon: Icon(
-                                TrendIcons.trend_user,
-                                color: Color(0xff707070),
-                                size: 32,
-                              )),
-                              Text("Profile")
-                        ],
-                      ),
-                      SizedBox(
-                        width: 66.1,
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                               Navigator.of(context).push(_createRoute(Settings()));
-                              //Get.to( Settings());
-                            },
-                            icon: Icon(
-                              TrendIcons.trend_settings,
-                              color: Color(0xff707070),
-                              size: 32,
-                            ),
-                          ),
-                          Text("Settings")
-                        ],
-                      )
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom :4.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      
+                      children: [
+                        Column(
+                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  
+                                   Navigator.of(context).push(_createRoute(AccountView()));
+                                },
+                                icon: Icon(
+                                  TrendIcons.trend_user,
+                                  color: Color(0xff707070),
+                                  size: 32,
+                                )),
+                                Text("Profile")
+                          ],
+                        ),
+                        SizedBox(
+                          width: 45.1,
+                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                   Navigator.of(context).push(_createRoute(Settings()));
+                                  //Get.to( Settings());
+                                },
+                                icon: Icon(
+                                  TrendIcons.trend_settings,
+                                  color: Color(0xff707070),
+                                  size: 32,
+                                ),
+                              ),
+                              Text("Settings")
+                            ],
+                          )
+                      ],
+                    ),
                   )),
             )
           ],

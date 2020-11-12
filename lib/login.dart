@@ -1,3 +1,4 @@
+import 'package:Trend/TermsAndConditions.dart';
 import 'package:Trend/TrendHome.dart';
 import 'package:Trend/email_login_widget.dart';
 import 'package:Trend/signupWidget.dart';
@@ -5,11 +6,11 @@ import 'package:Trend/trend_icons_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 
 import 'package:video_player/video_player.dart';
 
@@ -30,23 +31,38 @@ class _LoginScreen extends State<LoginScreen> {
   bool _visible_logo;
   bool _back;
   bool _email_login;
-
+  bool isInitialized = false;
   // TODO 5: Override the initState() method and setup your VideoPlayerController
   @override
   void initState() {
     super.initState();
     // Pointing the video controller to our local asset.
+    Get.log("${box.read("logged_in")}");
+    if (box.read("logged_in") != null && box.read("logged_in") == true) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Add Your Code here.
+        Get.to(TrendHome());
+        //this.dispose();
+        return;
+      });
+      return;
+    } else {
+      _controller =
+          VideoPlayerController.asset("assets/videos/login_video_animation.mp4")
+            ..initialize().then((_) {
+              //  _controller.
+              // Once the video has been loaded we play the video and set looping to true.
+              _controller.setLooping(true);
 
-    _controller =
-        VideoPlayerController.asset("assets/videos/login_video_animation.mp4")
-          ..initialize().then((_) {
-            //  _controller.
-            // Once the video has been loaded we play the video and set looping to true.
-            _controller.setLooping(true);
-            _controller.play();
+              _controller.play();
+              box.write("first_load", true);
+              setState(() {
+                isInitialized = true;
+              });
+              // Ensure the first frame is shown after the video is initialized.
+            });
+    }
 
-            // Ensure the first frame is shown after the video is initialized.
-          });
     _visible_signup = false;
     _email_login = false;
     _back = true;
@@ -54,7 +70,10 @@ class _LoginScreen extends State<LoginScreen> {
 
   Route _createRoute() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => TrendHome(),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          box.read("ts_agreed") != null && box.read("ts_agreed") == true
+              ? TrendHome()
+              : TermsAndConditions(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1);
         var end = Offset.zero;
@@ -102,59 +121,64 @@ class _LoginScreen extends State<LoginScreen> {
 
   Future<String> signInWithGoogle() async {
     //await Firebase.initializeApp();
-    _controller.pause();
-   
+
     //_controller.dispose();
-    if (box.read("logged_in") == true) {
-      Get.to(TrendHome());
-     
-    }else {
-          final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
+    if (box.read("logged_in") == "true" && box.read("ts_agreed") == true) {
+      Get.to(TrendHome()).then((value) {
+        _controller.dispose();
+      });
+    } else {
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
 
-    final UserCredential authResult =
-        await _auth.signInWithCredential(credential);
-    final User user = authResult.user;
+      final UserCredential authResult =
+          await _auth.signInWithCredential(credential);
+      final User user = authResult.user;
 
-    if (user != null) {
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
+      if (user != null) {
+        assert(!user.isAnonymous);
+        assert(await user.getIdToken() != null);
 
-      var first_name = user.displayName.split(" ")[0];
-      var lastname = user.displayName.split(" ")[1];
-      var email = user.email;
-      var photoUrl = user.photoURL;
-      box.write("username", user.displayName);
-      box.write("firstname", first_name);
-      box.write("lastname", lastname);
-      box.write("logged_in", true);
-      box.write("email", email);
-      box.write("photoUrl", photoUrl);
-      box.write("loggin_type", "GOOGLE");
+        var firstname = user.displayName.split(" ")[0];
+        var lastname = user.displayName.split(" ")[1];
+        var email = user.email;
+        var photoUrl = user.photoURL;
+        var userId = user.uid;
+        box.write("username", user.displayName);
+        box.write("firstname", firstname);
+        box.write("lastname", lastname);
+        box.write("logged_in", true);
+        box.write("email", email);
+        box.write("photoUrl", photoUrl);
+        box.write("loggin_type", "GOOGLE");
+        box.write("userId", userId);
 
-      final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
+        final User currentUser = _auth.currentUser;
+        assert(user.uid == currentUser.uid);
 
-      print('signInWithGoogle succeeded: $user');
-      Navigator.of(context).push(_createRoute());
-      return '$user';
+        print('signInWithGoogle succeeded: $user');
+        Navigator.of(context).push(_createRoute()).then((value) {
+          _controller.dispose();
+        });
+
+        return '$user';
+      }
+
+      return null;
     }
-
-    return null;
-    }
-    
   }
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -176,24 +200,42 @@ class _LoginScreen extends State<LoginScreen> {
             children: <Widget>[
               // TODO 7: Add a SizedBox to contain our video.
 
-              Container(child: Builder(builder: (BuildContext context) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  // Add Your Code here.
-                  setState(() {});
-                });
-                return SizedBox.expand(
-                  child: FittedBox(
-                    // If your background video doesn't look right, try changing the BoxFit property.
-                    // BoxFit.fill created the look I was going for.
-                    fit: BoxFit.fill,
-                    child: SizedBox(
-                      width: _controller.value.size?.width ?? 0,
-                      height: _controller.value.size?.height ?? 0,
-                      child: VideoPlayer(_controller),
-                    ),
+              Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Color(0xFFf79f00),
+                          Color(0XFFe54f4f),
+                        ]),
                   ),
-                );
-              })),
+                  child: Builder(builder: (BuildContext context) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      // Add Your Code here.
+
+                      setState(() {
+                        //_controller.play();
+                      });
+                    });
+                    return SizedBox.expand(
+                      child: FittedBox(
+                          // If your background video doesn't look right, try changing the BoxFit property.
+                          // BoxFit.fill created the look I was going for.
+                          fit: BoxFit.fill,
+                          child: SizedBox(
+                            width: isInitialized
+                                ? _controller.value.size?.width ?? 0
+                                : 0,
+                            height: isInitialized
+                                ? _controller.value.size?.height ?? 0
+                                : 0,
+                            child: isInitialized
+                                ? VideoPlayer(_controller)
+                                : Container(),
+                          )),
+                    );
+                  })),
               Center(
                 child: Container(
                   padding:

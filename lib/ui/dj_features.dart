@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../trend_icons_icons.dart';
 
+// === Release Notes ===
+// 1. Let Users disconnect from Google 
+// 2. Updated Terms of Use page
+// 3. Updated Notification bar icon for background play
+// 4. add Support for rewind 
+
+
 class DjFeatures extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

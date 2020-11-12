@@ -1,3 +1,5 @@
+import 'package:Trend/TrendHome.dart';
+import 'package:Trend/login.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -38,63 +40,119 @@ class _TermsAndConditions extends State<TermsAndConditions> {
         termsOfUse = value.toString();
       });
     });
+
+    Get.log("Value of ts ${box.read("ts_agreed")}");
   }
 
   Future<String> loadAsset() async {
     return await rootBundle.loadString('assets/terms/termsofuse.txt');
   }
 
-  Widget _bottom_buttons(BuildContext context) {
+  Container _closeButton({Color color, String label}) {
     return Container(
-      height: 80,
+      height: 46,
+      width: Get.width,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.010),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+          color: color),
+      child: Center(
+          child: Text(
+        label,
+        style: TextStyle(
+            color: Color(0xff262626),
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+      )),
+    );
+  }
+
+  Widget _bottom_buttons(
+    BuildContext context,
+  ) {
+    return Container(
       width: MediaQuery.of(context).size.width * 05,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               bottomRight: Radius.circular(20)),
-          color: Color(0xffFAFAFA)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            height: 60,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: OutlineButton(
-                onPressed: () {
-                  Get.back();
-                },
-                textColor: Theme.of(context).primaryColor,
-                highlightedBorderColor: Colors.orange,
-                borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text("No"),
-              ),
+          color: Colors.white),
+      child: Flexible(
+              child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25.0, top: 20),
+              child: Text("Do you agree with the Terms of Use above? ", style: TextStyle(fontWeight: FontWeight.bold),),
             ),
-          ),
-          Container(
-            height: 60,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FlatButton(
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                disabledColor: Colors.grey,
-                disabledTextColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                splashColor: Colors.blueAccent,
-                onPressed: () {
-                  // Get.to(TrendHome());
-                  info.setTermsAndConditionsTrue(true);
-                  box.write("ts_agreed", "true");
+            InkWell(
+                onTap: () {
+                  box.write("ts_agreed", true);
+                Get.to(TrendHome());
                 },
-                child: Text("Yes"),
+                child: _closeButton(label: "Yes", color: Color(0xfff79f00))),
+            InkWell(
+              onTap: () {
+                box.write("ts_agreed", false);
+                Get.to(LoginScreen());
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 35.0, top: 5),
+                child: _closeButton(label: "No", color: Color(0xffc1c1c1)),
               ),
-            ),
-          )
-        ],
+            )
+
+            // Container(
+            //   height: 60,
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: OutlineButton(
+            //       onPressed: () {
+            //         box.write("ts_agreed", false);
+            //         Get.to(LoginScreen());
+            //       },
+            //       textColor: Theme.of(context).primaryColor,
+            //       highlightedBorderColor: Colors.orange,
+            //       borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       child: Text("No"),
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   height: 60,
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: FlatButton(
+            //       color: Theme.of(context).primaryColor,
+            //       textColor: Colors.white,
+            //       disabledColor: Colors.grey,
+            //       disabledTextColor: Colors.black,
+            //       shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       splashColor: Colors.blueAccent,
+            //       onPressed: () {
+            //         // Get.to(TrendHome());
+            //         //info.setTermsAndConditionsTrue(true);
+            //         box.write("ts_agreed", true);
+            //       },
+            //       child: Text("Yes"),
+            //     ),
+            //   ),
+            // )
+          ],
+        ),
       ),
     );
   }
@@ -159,8 +217,8 @@ class _TermsAndConditions extends State<TermsAndConditions> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
-                    flex: 1,
+                  SizedBox(
+                    height: 40,
                     child: Container(
                       child: Center(
                         child: Text(
@@ -174,7 +232,7 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                     ),
                   ),
                   Expanded(
-                    flex: 5,
+                    flex:  5,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0, right: 20),
                       child: termsOfUse == "Loading"
@@ -192,7 +250,7 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                             )
                           : SingleChildScrollView(
                               child: SizedBox(
-                                height: Get.height * 8,
+                                height: Get.height * 12,
                                 child: Text(
                                   termsOfUse,
                                   textAlign: TextAlign.justify,
@@ -234,76 +292,57 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                   // }
 
                   Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25.0, right: 25, bottom: 25),
-                      child: box.read("agreed") != null &&
-                              box.read("agreed") == true
-                          ? InkWell(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Center(
-                                child: Container(
-                                  height: 46,
-                                  width: Get.width,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
+                    flex:  box.read("ts_agreed") != null && box.read("ts_agreed") == false ? 3 : 1,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25.0, right: 25),
+                        child: box.read("ts_agreed") != null &&
+                                box.read("ts_agreed") == true
+                            ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      Get.back();
+                                    },
+                                    child: Center(
+                                      child: Container(
+                                        height: 46,
+                                        width: Get.width,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color:
+                                                    Colors.grey.withOpacity(0.010),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                                offset: Offset(0, 3),
+                                              ),
+                                            ],
+                                            color: Color(0xfff79f00)),
+                                        child: Center(
+                                            child: Text(
+                                          "Close",
+                                          style: TextStyle(
+                                              color: Color(0xff262626),
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        )),
                                       ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.010),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                      color: Color(0xfff79f00)),
-                                  child: Center(
-                                      child: Text(
-                                    "Close",
-                                    style: TextStyle(
-                                        color: Color(0xff262626),
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                ),
-                              ),
+                                    ),
+                                  ),
+                              ],
                             )
-                          : InkWell(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Center(
-                                child: Container(
-                                  height: 46,
-                                  width: Get.width,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.010),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3),
-                                        ),
-                                      ],
-                                      color: Color(0xfff79f00)),
-                                  child: Center(
-                                      child: Text(
-                                    "Close",
-                                    style: TextStyle(
-                                        color: Color(0xff262626),
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                                ),
+                            : InkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Center(child: _bottom_buttons(context)),
                               ),
-                            ),
+                      ),
                     ),
                   )
                 ],

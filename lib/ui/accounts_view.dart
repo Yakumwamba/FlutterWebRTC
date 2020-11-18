@@ -1,5 +1,7 @@
+import 'package:Trend/agreedTermsOfUse.dart';
 import 'package:Trend/data/streaminfo.dart';
 import 'package:Trend/login.dart';
+import 'package:Trend/ui/transitions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,41 +25,20 @@ class _AccountViewState extends State<AccountView> {
   GetStorage box = GetStorage();
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  Route _createRoute(Widget route) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => route,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 1);
-        var end = Offset.zero;
-        var curve = Curves.easeInExpo;
-        var curve2 = Curves.linearToEaseOut;
-        var curve3 = Curves.fastLinearToSlowEaseIn;
-
-        var tween = Tween(begin: begin, end: end)
-            .chain(CurveTween(curve: curve))
-
-            // .chain(CurveTween(curve: curve2))
-            .chain(CurveTween(curve: curve2));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
 
   Future<void> send() async {
     final Email email = Email(
       body: " ",
-      subject: "Content Submition from ${box.read('firstname')}",
+      subject: "Content Submittion from ${box.read('firstname')}",
       recipients: ["trend@trendonlineradio.com"],
     );
 
     String platformResponse;
 
     try {
-      await FlutterEmailSender.send(email).then((value) {});
+      await FlutterEmailSender.send(email).then((value) {
+
+      });
       platformResponse = 'Thanks will get back to you!';
     } catch (error) {
       platformResponse = error.toString();
@@ -211,7 +192,7 @@ class _AccountViewState extends State<AccountView> {
                   flex: 1,
                   child: InkWell(
                     onTap: () {
-                      Navigator.of(context).push(_createRoute(ManageAccount()));
+                      Navigator.of(context).push(Transitions.createRoute(ManageAccount()));
 
                       //   Get.to(ManageAccount());
                     },
@@ -264,7 +245,7 @@ class _AccountViewState extends State<AccountView> {
                   flex: 1,
                   child: InkWell(
                     onTap: () {
-                      Get.to(TermsAndConditions());
+                      Get.to(AgreedConditions());
                     },
                     child: Container(
                       padding: EdgeInsets.all(18),

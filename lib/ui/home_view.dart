@@ -1,5 +1,6 @@
 
 import 'package:Trend/ui/dj_screen.dart';
+import 'package:Trend/ui/transitions.dart';
 import 'package:Trend/ui/tv_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,31 +28,6 @@ class _HomeViewState extends State<HomeView> {
  // final Controller controller = Get.put(Controller());
 
   final GetStorage box = GetStorage();
-
-  Route _createRoute(Widget route) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => route,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 1);
-        var end = Offset.zero;
-        var curve = Curves.easeInExpo;
-        var curve2 = Curves.linearToEaseOut;
-        var curve3 = Curves.fastLinearToSlowEaseIn;
-
-        var tween = Tween(begin: begin, end: end)
-            .chain(CurveTween(curve: curve))
-
-            // .chain(CurveTween(curve: curve2))
-            .chain(CurveTween(curve: curve2));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var username = box.read("firstname");
@@ -109,7 +85,7 @@ class _HomeViewState extends State<HomeView> {
                             splashColor: Colors.orange,
                             onTap: () {
                               Navigator.of(context)
-                                  .push(_createRoute(PlayScreen()));
+                                  .push(Transitions.createRoute(PlayScreen()));
                               //Get.to(PlayScreen());
                             },
                             child: Center(
@@ -183,7 +159,7 @@ class _HomeViewState extends State<HomeView> {
                               splashColor: Colors.orange,
                               onTap: () {
                                 Navigator.of(context)
-                                    .push(_createRoute(Dj_Screen()));
+                                    .push(Transitions.createRoute(Dj_Screen()));
                                 // Get.to(Dj_Screen());
                               },
                               child: Stack(
@@ -237,7 +213,7 @@ class _HomeViewState extends State<HomeView> {
                               child: InkWell(
                                 onTap: () {
                                   Navigator.of(context)
-                                      .push(_createRoute(Tv_Screen()));
+                                      .push(Transitions.createRoute(Tv_Screen()));
                                   //Get.to(Tv_Screen());
                                 },
                                 child: Stack(

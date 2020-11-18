@@ -40,7 +40,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [EmailSignUpWidget()],
+                children: [
+                  EmailSignUpWidget()
+                  ],
               ),
             ),
           )

@@ -1,6 +1,7 @@
 import 'package:Trend/settings.dart';
 import 'package:Trend/ui/accounts_view.dart'  hide TrendIcons;
 import 'package:Trend/ui/home_view.dart';
+import 'package:Trend/ui/transitions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
@@ -17,16 +18,16 @@ class TrendHome extends StatefulWidget {
 
 class _TrendHomeState extends State<TrendHome> {
   
-
 RateMyApp rateMyApp = RateMyApp(
   preferencesPrefix: 'rateMyApp_',
   minDays: 0, // Show rate popup on first day of install.
   minLaunches: 2, // Show rate popup after 5 launches of app after minDays is passed.
 );
+
+
 @override
 void initState() {
   super.initState();
-
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     await rateMyApp.init();
     if (mounted && rateMyApp.shouldOpenDialog) {  
@@ -35,29 +36,7 @@ void initState() {
   });
 }
 
-Route _createRoute(Widget route) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => route,
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(0.0, 1);
-      var end = Offset.zero;
-      var curve = Curves.easeInExpo;
-      var curve2 = Curves.linearToEaseOut;
-      var curve3 = Curves.fastLinearToSlowEaseIn;
 
-      var tween = Tween(begin: begin, end: end)
-          .chain(CurveTween(curve: curve))
-          
-          // .chain(CurveTween(curve: curve2))
-          .chain(CurveTween(curve: curve2));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
 
 @override
   Widget build(BuildContext context) {
@@ -70,8 +49,6 @@ Route _createRoute(Widget route) {
               child: Container(
                   height: 72,
                   width: Get.width,
-                 
-                  
                   decoration: BoxDecoration(
                     color: Colors.white,
                    boxShadow: [
@@ -96,7 +73,7 @@ Route _createRoute(Widget route) {
                             IconButton(
                                 onPressed: () {
                                   
-                                   Navigator.of(context).push(_createRoute(AccountView()));
+                                   Navigator.of(context).push(Transitions.createRoute(AccountView()));
                                 },
                                 icon: Icon(
                                   TrendIcons.trend_user,
@@ -115,7 +92,7 @@ Route _createRoute(Widget route) {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                   Navigator.of(context).push(_createRoute(Settings()));
+                                   Navigator.of(context).push(Transitions.createRoute(Settings()));
                                   //Get.to( Settings());
                                 },
                                 icon: Icon(

@@ -3,6 +3,7 @@ import 'package:Trend/TrendHome.dart';
 import 'package:Trend/email_login_widget.dart';
 import 'package:Trend/signupWidget.dart';
 import 'package:Trend/trend_icons_icons.dart';
+import 'package:Trend/ui/transitions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
@@ -66,33 +67,6 @@ class _LoginScreen extends State<LoginScreen> {
     _visible_signup = false;
     _email_login = false;
     _back = true;
-  }
-
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          box.read("ts_agreed") != null && box.read("ts_agreed") == true
-              ? TrendHome()
-              : TermsAndConditions(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 1);
-        var end = Offset.zero;
-        var curve = Curves.easeInExpo;
-        var curve2 = Curves.linearToEaseOut;
-        var curve3 = Curves.fastLinearToSlowEaseIn;
-
-        var tween = Tween(begin: begin, end: end)
-            .chain(CurveTween(curve: curve))
-
-            // .chain(CurveTween(curve: curve2))
-            .chain(CurveTween(curve: curve2));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
   }
 
   void continueWithEmail() {
@@ -163,8 +137,14 @@ class _LoginScreen extends State<LoginScreen> {
         final User currentUser = _auth.currentUser;
         assert(user.uid == currentUser.uid);
 
+        Widget trendHomeOrTermsAndConditions =
+            box.read("ts_agreed") != null && box.read("ts_agreed") == true
+                ? TrendHome()
+                : TermsAndConditions();
         print('signInWithGoogle succeeded: $user');
-        Navigator.of(context).push(_createRoute()).then((value) {
+        Navigator.of(context)
+            .push(Transitions.createRoute(trendHomeOrTermsAndConditions))
+            .then((value) {
           _controller.dispose();
         });
 

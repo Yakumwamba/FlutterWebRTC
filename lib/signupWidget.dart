@@ -16,49 +16,19 @@ import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 //import 'package:get_storage/get_storage.dart';
 
-
-class EmailSignUpWidget extends StatefulWidget {
-  const EmailSignUpWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _EmailSignUpWidgetState createState() => _EmailSignUpWidgetState();
-}
-
-class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
-  //GetStorage box = GetStorage();
-
-  // String your_client_id = "381667702819164";
-  // String redirect_url = "https://www.facebook.com/connect/login_success.html";
-
-  StreamInfo info = Get.find();
+class EmailSignUpWidget extends StatelessWidget {
+  final StreamInfo info = Get.find();
   final _auth = FirebaseAuth.instance;
 
   final databaseReference = FirebaseFirestore.instance;
 
-  GetStorage box = GetStorage();
+  final GetStorage box = GetStorage();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullName = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _success;
   String _userEmail;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-// @override
-// void initState() {
-  // super.initState();
-  // if(  box.read("logged_in") == "true") {
-  //  // info.getTrackInfo();
-  //   Get.to(TermsAndConditions());
-  // }
-  //    info.getTrackInfo();
-// }
 
   void _register() async {
     try {
@@ -79,7 +49,9 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
         user.updateProfile(displayName: "Test Display Name");
         Get.snackbar("Congratualtions", "Your account is ready");
         Get.to(LoginScreen());
-      } else {}
+      } else {
+
+      }
     } catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -87,13 +59,6 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
         print('The account already exists for that email.');
       }
     }
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    // box.dispose();
   }
 
   @override
@@ -140,16 +105,14 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                             },
                             decoration: InputDecoration(
                                 icon: Padding(
-                                  padding: const EdgeInsets.only(left : 10.0, right: 8),
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, right: 8),
                                   child: Icon(
-                                    
                                     TrendIcons.trend_user,
                                     size: 20,
-                                  
                                     color: Colors.orange,
                                   ),
                                 ),
-                                
                                 fillColor: Colors.white,
                                 filled: true,
                                 border: InputBorder.none,
@@ -174,10 +137,10 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                                 return "Email required";
                               }
                             },
-                            
                             decoration: InputDecoration(
                                 icon: Padding(
-                                   padding: const EdgeInsets.only(left : 10.0, right: 7),
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, right: 7),
                                   child: Icon(
                                     TrendIcons.email_icon,
                                     size: 19,
@@ -211,7 +174,8 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                             },
                             decoration: InputDecoration(
                                 icon: Padding(
-                                   padding: const EdgeInsets.only(left : 10.0, right: 9),
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, right: 9),
                                   child: Icon(
                                     TrendIcons.lock,
                                     size: 25,
@@ -245,7 +209,8 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                             },
                             decoration: InputDecoration(
                                 icon: Padding(
-                                    padding: const EdgeInsets.only(left : 10.0, right: 9),
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, right: 9),
                                   child: Icon(
                                     TrendIcons.lock,
                                     size: 25,
@@ -280,16 +245,16 @@ class _EmailSignUpWidgetState extends State<EmailSignUpWidget> {
                                   BorderRadius.all(Radius.circular(6))),
                           child: Center(
                               child: Padding(
-                                padding: const EdgeInsets.only(left : 10.0),
-                                child: Text(
-                            "Create Account",
-                            style: TextStyle(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "Create Account",
+                              style: TextStyle(
                                 color: Color(0xff262626),
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                              )),
+                          )),
                         ),
                       ),
                       SizedBox(height: 10),

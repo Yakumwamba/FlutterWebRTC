@@ -13,19 +13,17 @@ import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'data/streaminfo.dart';
 
-class TermsAndConditions extends StatefulWidget {
-  TermsAndConditions({Key key}) : super(key: key);
+class AgreedConditions extends StatefulWidget {
+  AgreedConditions({Key key}) : super(key: key);
 
   @override
-  _TermsAndConditions createState() => _TermsAndConditions();
+  _AgreedConditions createState() => _AgreedConditions();
 }
 
-class _TermsAndConditions extends State<TermsAndConditions> {
-  int _currentIndex = 0;
-  StreamInfo info = Get.find();
+class _AgreedConditions extends State<AgreedConditions> {
   GetStorage box = GetStorage();
   String termsOfUse;
-  WebViewPlusController _controller;
+
   double _height = 1;
   final _key = UniqueKey();
 
@@ -73,88 +71,6 @@ class _TermsAndConditions extends State<TermsAndConditions> {
             fontSize: 16,
             fontWeight: FontWeight.bold),
       )),
-    );
-  }
-
-  Widget _bottom_buttons(
-    BuildContext context,
-  ) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 05,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20)),
-          color: Colors.white),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(bottom: 25.0, top: 20),
-            child: Text(
-              "Do you agree with the Terms of Use above? ",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          InkWell(
-              onTap: () {
-                box.write("ts_agreed", true);
-                Get.to(TrendHome());
-              },
-              child: _closeButton(label: "Yes", color: Color(0xfff79f00))),
-          InkWell(
-            onTap: () {
-              box.write("ts_agreed", false);
-              Get.to(LoginScreen());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 35.0, top: 5),
-              child: _closeButton(label: "No", color: Color(0xffc1c1c1)),
-            ),
-          )
-
-          // Container(
-          //   height: 60,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: OutlineButton(
-          //       onPressed: () {
-          //         box.write("ts_agreed", false);
-          //         Get.to(LoginScreen());
-          //       },
-          //       textColor: Theme.of(context).primaryColor,
-          //       highlightedBorderColor: Colors.orange,
-          //       borderSide: BorderSide(color: Theme.of(context).primaryColor),
-          //       shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(10)),
-          //       child: Text("No"),
-          //     ),
-          //   ),
-          // ),
-          // Container(
-          //   height: 60,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: FlatButton(
-          //       color: Theme.of(context).primaryColor,
-          //       textColor: Colors.white,
-          //       disabledColor: Colors.grey,
-          //       disabledTextColor: Colors.black,
-          //       shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(10)),
-          //       splashColor: Colors.blueAccent,
-          //       onPressed: () {
-          //         // Get.to(TrendHome());
-          //         //info.setTermsAndConditionsTrue(true);
-          //         box.write("ts_agreed", true);
-          //       },
-          //       child: Text("Yes"),
-          //     ),
-          //   ),
-          // )
-        ],
-      ),
     );
   }
 
@@ -293,57 +209,55 @@ class _TermsAndConditions extends State<TermsAndConditions> {
                   // }
 
                   Expanded(
-                    flex: 3,
+                    flex: 1,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 25.0, right: 25),
-                        // child: box.read("ts_agreed") != null &&
-                        //         box.read("ts_agreed") == true
-                        //     ? Column(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: [
-                        //         InkWell(
-                        //             onTap: () {
-                        //               Get.back();
-                        //             },
-                        //             child: Center(
-                        //               child: Container(
-                        //                 height: 46,
-                        //                 width: Get.width,
-                        //                 decoration: BoxDecoration(
-                        //                     borderRadius: BorderRadius.all(
-                        //                       Radius.circular(10),
-                        //                     ),
-                        //                     boxShadow: [
-                        //                       BoxShadow(
-                        //                         color:
-                        //                             Colors.grey.withOpacity(0.010),
-                        //                         spreadRadius: 5,
-                        //                         blurRadius: 7,
-                        //                         offset: Offset(0, 3),
-                        //                       ),
-                        //                     ],
-                        //                     color: Color(0xfff79f00)),
-                        //                 child: Center(
-                        //                     child: Text(
-                        //                   "Close",
-                        //                   style: TextStyle(
-                        //                       color: Color(0xff262626),
-                        //                       fontSize: 14,
-                        //                       fontWeight: FontWeight.bold),
-                        //                 )),
-                        //               ),
-                        //             ),
-                        //           ),
-                        //       ],
-                        //     )
-                        child: InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Center(child: _bottom_buttons(context)),
-                        ),
-                      ),
+                          padding: const EdgeInsets.only(left: 25.0, right: 25),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Center(
+                                  child: Container(
+                                    height: 46,
+                                    width: Get.width,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.grey.withOpacity(0.010),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: Offset(0, 3),
+                                          ),
+                                        ],
+                                        color: Color(0xfff79f00)),
+                                    child: Center(
+                                        child: Text(
+                                      "Close",
+                                      style: TextStyle(
+                                          color: Color(0xff262626),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                          // child : InkWell(
+                          //     onTap: () {
+                          //       Get.back();
+                          //     },
+                          //     child: Center(child: _bottom_buttons(context)),
+                          //   ),
+                          ),
                     ),
                   )
                 ],

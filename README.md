@@ -1,4 +1,4 @@
-# yakumwamba_tv
+# Yakumwamba TV
 
 A demonstration of WebRTC using Flutter and Agora API.
 
